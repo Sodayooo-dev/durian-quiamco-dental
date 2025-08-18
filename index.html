@@ -1,240 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Koulen&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Krona+One&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Kulim+Park:300,400,600,700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./css/styles.css">
-    <title>Durian-Quiamco Dental Clinic - Professional Dental Care</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Koulen&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Krona+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Kulim+Park:300,400,600,700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/styles.css">
+  <title>Durian-Quiamco Dental Clinic</title>
 </head>
-
 <body>
-    <!-- Header -->
-    <div class="header">
-        <div class="header-nav">
-            <!-- Mobile hamburger button -->
-            <button class="mobile-menu-btn" aria-label="Toggle mobile menu">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
-            
-            <!-- Brand logo for mobile -->
-            <div class="mobile-brand">
-                <span class="mobile-brand-text">Durian-Quiamco</span>
-            </div>
-            
-            <!-- Desktop navigation -->
-            <div class="nav-left desktop-nav">
-                <a class="nav-item" href="#home">Home</a>
-                <a class="nav-item" href="#services">Services</a>
-                <a class="nav-item" href="#about-us">About Us</a>
-            </div>
-            <div class="nav-right desktop-nav">
-                <div class="badge-check"></div>
-                <span class="header-phone">09216467594</span>
-                <a class="header-login" href="#sign-in">Register/Login</a>
-            </div>
+  <!-- Hero Slider -->
+  <section class="hero-slider" id="home">
+    <div class="slider-container">
+      <div class="slide active" style="background-image: url(./images/clinic.jpg);">
+        <div class="slide-content">
+          <h1>Professional Dental Care You Can Trust</h1>
+          <a href="#contact" class="btn btn-primary">Book Appointment</a>
         </div>
-        
-        <!-- Mobile navigation overlay -->
-        <div class="mobile-nav-overlay">
-            <div class="mobile-nav-content">
-                <div class="mobile-nav-header">
-                    <span class="mobile-nav-title">Durian-Quiamco Dental</span>
-                    <button class="mobile-nav-close" aria-label="Close mobile menu">×</button>
-                </div>
-                
-                <nav class="mobile-nav-links">
-                    <a class="mobile-nav-item" href="#home">
-                        <i class="fas fa-home"></i>
-                        <span>Home</span>
-                    </a>
-                    <a class="mobile-nav-item" href="#services">
-                        <i class="fas fa-tooth"></i>
-                        <span>Services</span>
-                    </a>
-                    <a class="mobile-nav-item" href="#about-us">
-                        <i class="fas fa-users"></i>
-                        <span>About Us</span>
-                    </a>
-                    <a class="mobile-nav-item" href="tel:09216467594">
-                        <i class="fas fa-phone"></i>
-                        <span>09216467594</span>
-                    </a>
-                </nav>
-                
-                <div class="mobile-nav-footer">
-                    <a class="mobile-cta-btn" href="#sign-in">Register/Login</a>
-                    <div class="mobile-badge">
-                        <div class="mobile-badge-check">✓</div>
-                        <span>Licensed & Certified</span>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="slide" style="background-image: url('https://via.placeholder.com/1600x800?text=Dental+Care+2');">
+        <div class="slide-content">
+          <h1>Brighten Your Smile with Us</h1>
+          <a href="#services" class="btn btn-outline">Our Services</a>
         </div>
+      </div>
+      <div class="slide" style="background-image: url('https://via.placeholder.com/1600x800?text=Dental+Care+3');">
+        <div class="slide-content">
+          <h1>Gentle, Compassionate Dentistry</h1>
+          <a href="#about" class="btn btn-primary">Learn More</a>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- Brand Section -->
-    <div id="home" class="brand">
-        <div class="brand-content">
-            <span class="brand-name">Durian - Quiamco</span>
-            <span class="brand-tagline">Dental Clinic</span>
-            <div class="brand-logo"></div>
-        </div>
+  <!-- Header -->
+  <header class="header">
+  <div class="header-inner">
+    <div class="logo">Durian-Quiamco</div>
+    <div class="header-buttons">
+      <button class="menu-btn">Menu</button>
+      <a href="#contact" class="btn btn-small">Book Appointment</a>
     </div>
+  </div>
+</header>
 
-    <!-- Hero Card -->
-    <div class="hero-card">
-        <div class="hero-card-inner">
-            <span class="hero-description">
-                Experience comprehensive dental care with our skilled team at Durian-Quiamco Dental Care Clinic.
-                We provide quality treatments in a comfortable environment to keep your smile healthy and bright.
-            </span>
-        </div>
+
+  <!-- Fullscreen Navigation -->
+  <div class="nav-overlay">
+    <button class="nav-close">×</button>
+    <nav class="nav-menu">
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#services">Services</a>
+      <a href="#why">Why Choose Us</a>
+      <a href="#doctors">Our Doctors</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+
+  <!-- About Section -->
+  <section id="about" class="about-section">
+    <div class="section-content">
+      <h2>About Our Clinic</h2>
+      <p>
+        At Durian-Quiamco Dental Clinic, we believe in providing comprehensive, 
+        patient-centered dental care. Our mission is to help you achieve a healthy 
+        and confident smile in a comfortable and modern environment.
+      </p>
     </div>
+  </section>
 
-    <!-- Services Section -->
-    <div id="services" class="services-section">
-        <div class="section-title">
-            <h2>Our Services</h2>
-            <p>Comprehensive dental care tailored to your needs</p>
-        </div>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">🦷</div>
-                <h3>General Dentistry</h3>
-                <p>Routine checkups, cleanings, fillings, and preventive care to maintain your oral health.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">✨</div>
-                <h3>Cosmetic Dentistry</h3>
-                <p>Teeth whitening, veneers, and smile makeovers to enhance your appearance.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🔧</div>
-                <h3>Restorative Care</h3>
-                <p>Crowns, bridges, and implants to restore function and beauty to your smile.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">👶</div>
-                <h3>Pediatric Dentistry</h3>
-                <p>Specialized care for children in a friendly, comfortable environment.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🚨</div>
-                <h3>Emergency Care</h3>
-                <p>Prompt treatment for dental emergencies and urgent care needs.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🦷</div>
-                <h3>Oral Surgery</h3>
-                <p>Tooth extractions, wisdom teeth removal, and other surgical procedures.</p>
-            </div>
-        </div>
+<!-- Services Section -->
+<section id="services" class="services-section">
+  <div class="section-content">
+    <h2>Our Expert Dental Services</h2>
+    <p>Advanced Treatments and Personalized Care for Your Unique Smile</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <img src="https://img.icons8.com/ios-filled/50/269A90/tooth.png" alt="General Dentistry">
+        <h3>General Dentistry</h3>
+        <p>Routine checkups, cleanings, and preventive care.</p>
+      </div>
+      <div class="service-card">
+        <img src="https://img.icons8.com/ios-filled/50/269A90/teeth-whitening.png" alt="Cosmetic Dentistry">
+        <h3>Cosmetic Dentistry</h3>
+        <p>Whitening, veneers, and smile makeovers.</p>
+      </div>
+      <div class="service-card">
+        <img src="https://img.icons8.com/ios-filled/50/269A90/dental-crown.png" alt="Restorative Care">
+        <h3>Restorative Care</h3>
+        <p>Crowns, bridges, and implants to restore your smile.</p>
+      </div>
+      <div class="service-card">
+        <img src="https://img.icons8.com/ios-filled/50/269A90/baby.png" alt="Pediatric Dentistry">
+        <h3>Pediatric Dentistry</h3>
+        <p>Gentle care tailored for children.</p>
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- CTA Section -->
-    <div class="cta-section">
-        <div class="cta-content">
-            <span class="welcome-title">Welcome to Durian-Quiamco Dental Care!</span>
-            <p class="cta-description">
-                Your trusted partner for comprehensive dental care in a modern, comfortable environment.
-                We're committed to providing exceptional service and helping you achieve your best smile.
-            </p>
-            <div class="cta-buttons">
-                <a href="#schedule" class="btn btn-primary">Book Appointment</a>
-                <a href="#about-us" class="btn btn-outline">Learn More</a>
-            </div>
-        </div>
+
+  <!-- Why Choose Us -->
+  <section id="why" class="why-section">
+    <div class="section-content">
+      <h2>Why Choose Us</h2>
+      <div class="features-grid">
+        <div class="feature-card">Licensed Professionals</div>
+        <div class="feature-card">Modern Equipment</div>
+        <div class="feature-card">Comfortable Environment</div>
+        <div class="feature-card">Exceptional Care</div>
+      </div>
     </div>
+  </section>
 
-    <!-- Schedule Section -->
-    <div id="schedule" class="schedule-section">
-        <div class="schedule-content">
-            <div class="schedule-info">
-                <span class="schedule-title">Clinic Schedule</span>
-                <span class="schedule-time">9:00 am - 6:00 pm</span>
-                <p class="schedule-details">
-                    We're open Monday through Saturday to serve you better. 
-                    Emergency appointments available outside regular hours.
-                </p>
-                <a href="tel:09216467594" class="cta-book">Book Your Appointment</a>
-            </div>
-            <div class="schedule-visual">
-                <div class="schedule-icon">📅</div>
-                <h3>Easy Scheduling</h3>
-                <p>Call us or visit our clinic to schedule your appointment at your convenience.</p>
-            </div>
-        </div>
+  <!-- Doctors Section -->
+   <section id="doctors" class="doctors-section">
+   <div class="section-content">
+    <h2>Our Doctors</h2>
+    <p>Our team of licensed professionals is dedicated to providing gentle, compassionate dental care.</p>
+<div class="doctor-grid">
+  <div class="doctor-card">
+    <div class="doctor-image">
+      <img src="images/dr_Rvee.jpg" alt="Dr. Rvee Abuzo">
     </div>
-
-    <!-- Features Section -->
-    <div class="features-section">
-        <div class="features-grid">
-            <div class="feature-card">
-                <span class="feature-title">Licensed Professional</span>
-                <span class="feature-subtitle">Quality you can trust</span>
-            </div>
-            <div class="feature-card">
-                <span class="feature-title">Modern Equipment</span>
-                <span class="feature-subtitle">Latest dental technology</span>
-            </div>
-            <div class="feature-card">
-                <span class="feature-title">Comfortable Environment</span>
-                <span class="feature-subtitle">Relaxing dental experience</span>
-            </div>
-            <div class="feature-card">
-                <span class="feature-title">Quality Dental Care</span>
-                <span class="feature-subtitle">Excellence in every treatment</span>
-            </div>
-        </div>
+    <h3>Dr. Rvee Abuzo</h3>
+    <p>Orthodontist</p>
+  </div>
+  <div class="doctor-card">
+    <div class="doctor-image">
+      <img src="images/dr_Jirho.jpg" alt="Dr. Jirho Enciso">
     </div>
-
-    <!-- Badge Section -->
-    <div class="badge-section">
-        <div class="badge-icon"></div>
-        <span class="badge-label">Licensed & Certified</span>
-        <p>Providing professional dental care with proper licensing and certifications</p>
+    <h3>Dr. Jirho Enciso</h3>
+    <p>General Dentist</p>
+  </div>
+  <div class="doctor-card">
+    <div class="doctor-image">
+      <img src="images/dr_Miguel.jpg" alt="Dr. Miguel Tumaliuan">
     </div>
-
-    <!-- Hero Image Section -->
-    <div class="hero-image-wrap">
-        <div class="hero-image">
-            <span class="hero-headline">Professional Dental Care You Can Trust</span>
-        </div>
+    <h3>Dr. Miguel Tumaliuan</h3>
+    <p>Assistant Dentist</p>
     </div>
+  </div>
+</div>
+</section>
 
-    <!-- Footer -->
-    <div class="footer">
-        <div class="footer-content">
-            <div class="footer-info">
-                <h3>Durian-Quiamco Dental Clinic</h3>
-                <p>Your trusted partner for comprehensive dental care</p>
-            </div>
-            <div class="footer-contact">
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span>09216467594</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-clock"></i>
-                    <span>9:00 AM - 6:00 PM</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>Solana, Cagayan</span>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Durian-Quiamco Dental Clinic. All rights reserved.</p>
-            </div>
-        </div>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact-section">
+    <div class="section-content">
+      <h2>Contact Us</h2>
+      <p>Have questions or want to book an appointment? Reach out today.</p>
+      <div class="contact-info">
+        <p><i class="fas fa-phone"></i> 09216467594</p>
+        <p><i class="fas fa-clock"></i> Mon–Sat, 9:00 AM – 6:00 PM</p>
+        <p><i class="fas fa-map-marker-alt"></i> Natappian West & Centro Solana, Solana, Philippines, 3503</p>
+      </div>
     </div>
+  </section>
 
-    <script src="./js/script.js"></script>
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 Durian-Quiamco Dental Clinic. All rights reserved.</p>
+  </footer>
+
+  <script src="./js/script.js"></script>
 </body>
 </html>
