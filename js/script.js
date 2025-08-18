@@ -16,20 +16,25 @@ const navMenu = document.querySelector('.nav-menu');
 
 menuBtn.addEventListener('click', () => {
   navOverlay.classList.add('active');
-  navMenu.classList.add('active');  // trigger slide-in animation
+  menuBtn.classList.add('open'); // hamburger turns into X
+  navMenu.classList.add('active'); // for menu link animations
 });
 
 navClose.addEventListener('click', () => {
   navOverlay.classList.remove('active');
-  navMenu.classList.remove('active'); // reset animation
+  menuBtn.classList.remove('open'); // revert X to hamburger
+  navMenu.classList.remove('active');
 });
 
+// Close menu when clicking any link
 document.querySelectorAll('.nav-menu a').forEach(link => {
   link.addEventListener('click', () => {
     navOverlay.classList.remove('active');
+    menuBtn.classList.remove('open');
     navMenu.classList.remove('active');
   });
 });
+
 
 
 // =======================
@@ -96,3 +101,22 @@ const doctorCards = document.querySelectorAll('.doctor-grid .doctor-card');
 createObserver(serviceCards);
 createObserver(featureCards);
 createObserver(doctorCards);
+
+const backToTopBtn = document.getElementById('back-to-top');
+
+// Show/hide button on scroll
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 100) {
+    backToTopBtn.style.display = 'flex';
+  } else {
+    backToTopBtn.style.display = 'none';
+  }
+});
+
+// Smooth scroll to top on click
+backToTopBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
