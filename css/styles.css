@@ -56,7 +56,7 @@ a {
   justify-content: center;
   z-index: 1000;
   transition: background 0.3s;
-  background: rgba(38, 154, 144, 0.95);
+  background: rgba(38, 154, 144, 1);
 }
 
 .header.scrolled {
@@ -77,11 +77,25 @@ a {
   gap: 2rem; /* space between menu and book button */
 }
 
+/* Logo with image + text */
 .logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo-img {
+  height: 90px;   /* adjust size */
+  width: auto;
+  display: block;
+}
+
+.logo-text {
   font-size: 1.5rem;
   font-weight: 700;
   color: #fff;
 }
+
 
 .menu-btn {
   background: none;
@@ -100,7 +114,7 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(38, 154, 144, 0.97);
+  background: rgb(38, 154, 144);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -108,6 +122,7 @@ a {
   transform-origin: top;
   transition: transform 0.3s ease-in-out;
   z-index: 2000;
+  padding: 4rem 2rem;
 }
 
 .nav-overlay.active {
@@ -125,51 +140,73 @@ a {
   cursor: pointer;
 }
 
+/* =======================
+   Mega Menu (Affinity-style)
+   - Keep .nav-menu class so your JS keeps working
+   - Horizontal categories; vertical sub-items
+======================= */
 .nav-menu {
   display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  text-align: center;
+  flex-wrap: wrap;
+  gap: 3rem;
+  max-width: 1200px;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;     /* vertical lists under each category */
+  padding: 0 1rem;
+  opacity: 1;           /* container visible; we animate the links instead */
 }
 
-/* =======================
-   Fullscreen Menu Links (no boxes)
-======================= */
-.nav-menu a {
-  font-size: 2rem;
+.nav-category {
+  min-width: 180px;
+}
+
+.nav-category h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
   color: #fff;
-  padding: 0.5rem 0;
-  background: none;
-  border-radius: 0;
-  transition: color 0.3s, transform 0.3s ease;
+  font-weight: 700;
+  border-bottom: 2px solid rgba(255,255,255,0.3);
+  padding-bottom: 0.5rem;
+}
+
+.nav-category ul {
+  list-style: none;
+}
+
+.nav-category li {
+  margin: 0.5rem 0;
+}
+
+/* Links inside mega menu */
+.nav-menu a {
+  font-size: 1rem;
+  color: #fff;
   display: block;
-  opacity: 0;
-  transform: translateX(-30px);
+  padding: 0.2rem 0;
+  transition: color 0.3s, transform 0.3s ease, opacity 0.4s ease;
+  opacity: 0;                  /* start hidden for animation */
+  transform: translateY(8px);  /* slight slide up on reveal */
 }
 
 .nav-menu a:hover {
-  color: #269A90;
-  transform: translateX(5px);
+  color: #f0f0f0;
+  transform: translateX(4px);
 }
 
-/* animation */
+/* Reveal animation when menu opens (JS adds .active to .nav-menu) */
 .nav-menu.active a {
-  animation: slideIn 0.4s forwards;
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.nav-menu.active a:nth-child(1) { animation-delay: 0.1s; }
-.nav-menu.active a:nth-child(2) { animation-delay: 0.2s; }
-.nav-menu.active a:nth-child(3) { animation-delay: 0.3s; }
-.nav-menu.active a:nth-child(4) { animation-delay: 0.4s; }
-.nav-menu.active a:nth-child(5) { animation-delay: 0.5s; }
-.nav-menu.active a:nth-child(6) { animation-delay: 0.6s; }
-
-@keyframes slideIn {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
+/* Optional: gentle stagger using CSS only */
+.nav-category ul li:nth-child(1) a { transition-delay: 0.05s; }
+.nav-category ul li:nth-child(2) a { transition-delay: 0.10s; }
+.nav-category ul li:nth-child(3) a { transition-delay: 0.15s; }
+.nav-category ul li:nth-child(4) a { transition-delay: 0.20s; }
+.nav-category ul li:nth-child(5) a { transition-delay: 0.25s; }
 
 /* Smooth scroll behavior for anchors */
 html {
@@ -207,9 +244,10 @@ html {
   align-items: center;
 }
 
-.slide.active {
+.slide.active{
   left: 0;
-  opacity: 1;
+  opacity: 0.90;
+  border-radius: 20px;
 }
 
 .slide-content {
@@ -236,19 +274,27 @@ section {
   text-align: center;
 }
 
+.services-section h2 {
+  color: #fff;
+}
+
 h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #269A90;
+  color: #333;
   text-align: center;
 }
 
 /* =======================
    Services Section
 ======================= */
+.services-section {
+  background-color: #32978b;
+}
+
 .services-section p {
   font-size: 1.1rem;
-  color: #333;
+  color: #fff;
   margin-bottom: 2rem;
 }
 
@@ -375,7 +421,6 @@ h2 {
   margin-bottom: 0.5rem;
 }
 
-
 /* =======================
    Contact
 ======================= */
@@ -388,6 +433,98 @@ h2 {
   font-size: 1.1rem;
 }
 
+/* Contact Section Grid */
+.contact-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap; /* stacks nicely on smaller screens */
+  text-align: left;
+}
+
+/* Left brand section */
+.contact-brand {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.contact-logo {
+  width: 80px; /* adjust logo size */
+  height: auto;
+}
+
+.brand-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #269A90;
+}
+
+/* Right details section */
+.contact-details {
+  flex: 2;
+}
+
+.contact-details h2 {
+  margin-bottom: 0.5rem;
+}
+
+.contact-details p {
+  margin-bottom: 1rem;
+}
+
+/* Contact heading centered at top */
+.contact-heading {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: #333;
+}
+
+/* Contact Section Grid */
+.contact-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 9rem;
+  flex-wrap: wrap;
+  text-align: left;
+}
+
+/* Left brand section */
+.contact-brand {
+  flex: 1;
+  display: flex;
+  flex-direction: row; /* logo left, text right */
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem; /* keeps it a bit lower */
+}
+
+.contact-logo {
+  width: 90px;
+  height: auto;
+}
+
+.brand-name {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #269A90;
+}
+
+/* Right details section */
+.contact-details {
+  flex: 2;
+}
+
+.contact-details p {
+  margin-bottom: 1rem;
+}
+
+
 /* =======================
    Footer
 ======================= */
@@ -399,44 +536,8 @@ h2 {
 }
 
 /* =======================
-   Animated Fullscreen Menu Items
+   Mobile Header / Hamburger
 ======================= */
-.nav-menu a {
-  font-size: 2rem;
-  color: #fff;
-  padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  display: block;
-  opacity: 0;
-  transform: translateX(-30px); /* start slightly offscreen */
-}
-
-.nav-menu a:hover {
-  color: #269A90;
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateX(5px);
-}
-
-/* Add animation delay using nth-child */
-.nav-menu.active a {
-  animation: slideIn 0.4s forwards;
-}
-
-.nav-menu.active a:nth-child(1) { animation-delay: 0.1s; }
-.nav-menu.active a:nth-child(2) { animation-delay: 0.2s; }
-.nav-menu.active a:nth-child(3) { animation-delay: 0.3s; }
-.nav-menu.active a:nth-child(4) { animation-delay: 0.4s; }
-.nav-menu.active a:nth-child(5) { animation-delay: 0.5s; }
-.nav-menu.active a:nth-child(6) { animation-delay: 0.6s; }
-
-@keyframes slideIn {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
 
 /* Desktop menu text */
 .menu-btn .menu-text {
@@ -495,7 +596,9 @@ h2 {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* Back to Top Button */
+/* =======================
+   Back to Top Button
+======================= */
 #back-to-top {
   position: fixed;
   bottom: 30px;
@@ -519,4 +622,23 @@ h2 {
 #back-to-top:hover {
   background: #1f7f73;
   transform: translateY(-3px);
+}
+
+/* =======================
+   Responsive tweak for mega menu
+======================= */
+@media (max-width: 900px) {
+  .nav-menu {
+    gap: 2rem;
+    justify-content: flex-start;
+  }
+}
+@media (max-width: 640px) {
+  .nav-menu {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .nav-category {
+    min-width: 100%;
+  }
 }

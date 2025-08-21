@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Book Appointment - Durian-Quiamco Dental Clinic</title>
+  <link href="https://fonts.googleapis.com/css?family=Kulim+Park:300,400,600,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/booking.css" />
+</head>
+<body>
+  <section class="booking-section">
+    <div class="booking-card">
+      <!-- STEP 1: Date & Time -->
+      <div class="booking-step active" id="step1">
+        <h2>Select Date & Time</h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="appointmentDate">Choose a date</label>
+            <input type="date" id="appointmentDate" required />
+          </div>
+
+          <div class="form-group">
+            <label for="appointmentTime">Choose a time</label>
+            <select id="appointmentTime" required>
+              <option value="">-- Select a time --</option>
+              <option value="09:00">9:00 AM</option>
+              <option value="10:00">10:00 AM</option>
+              <option value="11:00">11:00 AM</option>
+              <option value="13:00">1:00 PM</option>
+              <option value="14:00">2:00 PM</option>
+              <option value="15:00">3:00 PM</option>
+              <option value="16:00">4:00 PM</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn-primary wide" id="goNext">Next</button>
+      </div>
+
+      <!-- STEP 2: PDA Patient Information -->
+      <div class="booking-step" id="step2">
+        <h2>Durian-Quiamco Patient Information</h2>
+
+        <!-- Selected appointment summary -->
+        <div class="summary" id="apptSummary"></div>
+
+        <form id="bookingForm" action="process_booking.php" method="POST">
+          <!-- Hidden values for PHP (filled by JS) -->
+          <input type="hidden" name="appointment_date" id="hiddenAppointmentDate" />
+          <input type="hidden" name="appointment_time" id="hiddenAppointmentTime" />
+
+          <!-- Personal Information -->
+          <div class="section-subheading">Personal Information</div>
+
+          <div class="form-group">
+            <label for="name">Full Name*</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="birthdate">Birthdate*</label>
+              <input type="date" id="birthdate" name="birthdate" required />
+            </div>
+            <div class="form-group">
+              <label for="age">Age*</label>
+              <input type="number" id="age" name="age" min="0" required />
+            </div>
+            <div class="form-group">
+              <label for="sex">Sex*</label>
+              <select id="sex" name="sex" required>
+                <option value="">Select</option>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="religion">Religion</label>
+              <input type="text" id="religion" name="religion" />
+            </div>
+            <div class="form-group">
+              <label for="nationality">Nationality</label>
+              <input type="text" id="nationality" name="nationality" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="homeAddress">Home Address*</label>
+            <input type="text" id="homeAddress" name="homeAddress" required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="occupation">Occupation</label>
+              <input type="text" id="occupation" name="occupation" />
+            </div>
+            <div class="form-group">
+              <label for="mobile">Mobile No.*</label>
+              <input type="tel" id="mobile" name="mobile" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" />
+            </div>
+            <div class="form-group">
+              <label for="referrer">Referred By</label>
+              <input type="text" id="referrer" name="referrer" />
+            </div>
+          </div>
+
+          <!-- Dental History -->
+          <div class="section-subheading">Dental History</div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="prevDentist">Previous Dentist</label>
+              <input type="text" id="prevDentist" name="prevDentist" />
+            </div>
+            <div class="form-group">
+              <label for="lastVisit">Last Dental Visit</label>
+              <input type="date" id="lastVisit" name="lastVisit" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="reason">Reason for Consultation</label>
+            <textarea id="reason" name="reason" rows="2"></textarea>
+          </div>
+
+          <!-- Medical History -->
+          <div class="section-subheading">Medical History</div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="physician">Physician Name</label>
+              <input type="text" id="physician" name="physician" />
+            </div>
+            <div class="form-group">
+              <label for="physicianOffice">Office / Contact</label>
+              <input type="text" id="physicianOffice" name="physicianOffice" />
+            </div>
+          </div>
+
+          <div class="form-group-inline">
+            <span class="inline-label">Are you in good health?*</span>
+            <label><input type="radio" name="goodHealth" value="Yes" required /> Yes</label>
+            <label><input type="radio" name="goodHealth" value="No" /> No</label>
+          </div>
+
+          <div class="form-group">
+            <label for="medCondition">If under treatment, specify condition</label>
+            <input type="text" id="medCondition" name="medCondition" />
+          </div>
+
+          <div class="form-group-inline">
+            <span class="inline-label">Hospitalized or had surgery?</span>
+            <label><input type="radio" name="hospitalized" value="Yes" /> Yes</label>
+            <label><input type="radio" name="hospitalized" value="No" /> No</label>
+          </div>
+
+          <div class="form-group">
+            <label for="surgeryDetails">If yes, specify</label>
+            <input type="text" id="surgeryDetails" name="surgeryDetails" />
+          </div>
+
+          <div class="form-group">
+            <label for="medications">Current Medications</label>
+            <textarea id="medications" name="medications" rows="2"></textarea>
+          </div>
+
+          <div class="form-group">
+            <span class="inline-label">Allergies (check all that apply)</span>
+            <div class="checkbox-grid">
+              <label><input type="checkbox" name="allergies[]" value="Local Anesthetic" /> Local Anesthetic</label>
+              <label><input type="checkbox" name="allergies[]" value="Penicillin" /> Penicillin</label>
+              <label><input type="checkbox" name="allergies[]" value="Sulfa" /> Sulfa drugs</label>
+              <label><input type="checkbox" name="allergies[]" value="Aspirin" /> Aspirin</label>
+              <label><input type="checkbox" name="allergies[]" value="Latex" /> Latex</label>
+              <label><input type="checkbox" name="allergies[]" value="Others" /> Others</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="otherAllergies">If others, specify</label>
+            <input type="text" id="otherAllergies" name="otherAllergies" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="bloodType">Blood Type</label>
+              <input type="text" id="bloodType" name="bloodType" />
+            </div>
+            <div class="form-group">
+              <label for="bloodPressure">Blood Pressure</label>
+              <input type="text" id="bloodPressure" name="bloodPressure" placeholder="e.g., 120/80" />
+            </div>
+          </div>
+
+          <!-- Women-only -->
+          <div class="section-subheading">For Women</div>
+          <div class="form-group-inline">
+            <span class="inline-label">Pregnant?</span>
+            <label><input type="radio" name="pregnant" value="Yes" /> Yes</label>
+            <label><input type="radio" name="pregnant" value="No" /> No</label>
+          </div>
+
+          <div class="form-group-inline">
+            <span class="inline-label">Nursing?</span>
+            <label><input type="radio" name="nursing" value="Yes" /> Yes</label>
+            <label><input type="radio" name="nursing" value="No" /> No</label>
+          </div>
+
+          <div class="form-group-inline">
+            <span class="inline-label">Using birth control pills?</span>
+            <label><input type="radio" name="birthControl" value="Yes" /> Yes</label>
+            <label><input type="radio" name="birthControl" value="No" /> No</label>
+          </div>
+
+          <button type="submit" class="btn-primary">Submit Appointment</button>
+          <p class="submit-note">This form will be sent securely. You can finalize the schedule after confirmation.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <script src="./js/booking.js"></script>
+</body>
+</html>

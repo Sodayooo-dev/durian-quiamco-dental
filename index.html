@@ -17,7 +17,7 @@
       <div class="slide active" style="background-image: url(./images/clinic.jpg);">
         <div class="slide-content">
           <h1>Professional Dental Care You Can Trust</h1>
-          <a href="#contact" class="btn btn-primary">Book Appointment</a>
+          <a href="./booking.html" class="btn btn-primary">Book Appointment</a>
         </div>
       </div>
       <div class="slide" style="background-image: url('https://via.placeholder.com/1600x800?text=Dental+Care+2');">
@@ -38,34 +38,76 @@
   <!-- Header -->
   <header class="header">
   <div class="header-inner">
-    <div class="logo">Durian-Quiamco</div>
+    <div class="logo">
+      <img src="./images/logo.png" alt="Clinic Logo" class="logo-img">
+      <span class="logo-text">Durian-Quiamco Dental Clinic</span>
+    </div>
     <div class="header-buttons">
-      <button class="menu-btn">
+      <button class="menu-btn" id="menuBtn">
         <span></span>
         <span></span>
         <span></span>
         <span class="menu-text">Menu</span>
       </button>
-
-
-      <a href="#contact" class="btn btn-small">Book Appointment</a>
+      <a href="#" class="btn btn-small">Register/Login</a>
     </div>
   </div>
 </header>
 
 
+
   <!-- Fullscreen Navigation -->
-  <div class="nav-overlay">
-    <button class="nav-close">×</button>
-    <nav class="nav-menu">
-      <a href="#home">Home</a>
-      <a href="#about">About Us</a>
-      <a href="#services">Services</a>
-      <a href="#why">Why Choose Us</a>
-      <a href="#doctors">Our Doctors</a>
-      <a href="#contact">Contact</a>
-    </nav>
+<div class="nav-overlay" id="navOverlay">
+  <button class="nav-close" id="navClose">&times;</button>
+
+  <!-- Keep the class name .nav-menu so your existing JS continues to work -->
+  <div class="nav-menu">
+    <!-- Category 1 -->
+    <div class="nav-category">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="./booking.html">Book an Appointment</a></li>
+        <li><a href="#">Send us a Message</a></li>
+      </ul>
+    </div>
+
+    <!-- Category 2 -->
+    <div class="nav-category">
+      <h3>Services</h3>
+      <ul>
+        <li><a href="#">General Dentistry</a></li>
+        <li><a href="#">Pediatric Dentistry</a></li>
+        <li><a href="#">Cosmetic Dentistry</a></li>
+        <li><a href="#">Restorative Care</a></li>
+      </ul>
+    </div>
+
+    <!-- Category 3 -->
+    <div class="nav-category">
+      <h3>Community</h3>
+      <ul>
+        <li><a href="#">Customer Reviews</a></li>
+        <li><a href="#">News and Media</a></li>
+        <li><a href="https://www.facebook.com/profile.php?id=61565522143241" target="_blank">Facebook</a></li>
+      </ul>
+    </div>
+
+    <!-- Category 4 -->
+    <div class="nav-category">
+      <h3>Company</h3>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Mission and Vision</a></li>
+        <li><a href="#">Our Purpose</a></li>
+        <li><a href="#">Our Values</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Employees</a></li>
+      </ul>
+    </div>
   </div>
+</div>
+
 
   <!-- About Section -->
   <section id="about" class="about-section">
@@ -156,17 +198,35 @@
 
 
   <!-- Contact Section -->
-  <section id="contact" class="contact-section">
-    <div class="section-content">
-      <h2>Contact Us</h2>
-      <p>Have questions or want to book an appointment? Reach out today.</p>
-      <div class="contact-info">
-        <p><i class="fas fa-phone"></i> 09216467594</p>
-        <p><i class="fas fa-clock"></i> Mon–Sat, 9:00 AM – 6:00 PM</p>
-        <p><i class="fas fa-map-marker-alt"></i> Natappian West & Centro Solana, Solana, Philippines, 3503</p>
+<section id="contact" class="contact-section">
+  <div class="section-content">
+
+    <!-- Centered heading -->
+    <h2 class="contact-heading">Contact Us</h2>
+
+    <!-- Two-column grid -->
+    <div class="contact-grid">
+      
+      <!-- Left: Logo + Brand -->
+      <div class="contact-brand">
+        <img src="./images/logo.png" alt="Clinic Logo" class="contact-logo">
+        <h3 class="brand-name">Durian-Quiamco Dental Clinic</h3>
       </div>
+      
+      <!-- Right: Contact Info -->
+      <div class="contact-details">
+        <p>Have questions or want to book an appointment? Reach out today.</p>
+        <div class="contact-info">
+          <p><i class="fas fa-phone"></i> 09216467594</p>
+          <p><i class="fas fa-clock"></i> Mon–Sat, 9:00 AM – 6:00 PM</p>
+          <p><i class="fas fa-map-marker-alt"></i> Natappian West & Centro Solana, Solana, Philippines, 3503</p>
+        </div>
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
+
 
   <!-- Footer -->
   <footer class="footer">

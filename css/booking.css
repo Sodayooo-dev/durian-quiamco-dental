@@ -1,0 +1,146 @@
+/* Base */
+:root { --teal:#269A90; --text:#333; --muted:#777; --bg:#f7f9f9; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Kulim Park', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+/* Layout */
+.booking-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.booking-card {
+  width: 100%;
+  max-width: 980px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  padding: 2rem 2rem 2.4rem;
+}
+
+/* Steps */
+.booking-step { display: none; animation: fadeIn 280ms ease-out both; }
+.booking-step.active { display: block; }
+h2 {
+  text-align: center;
+  color: var(--teal);
+  margin: 0 0 1.25rem;
+  font-weight: 700;
+}
+
+/* Form anatomy */
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-group { margin-bottom: 1rem; }
+.form-group label { font-weight: 600; display: block; margin-bottom: .5rem; }
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: .8rem .9rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.form-group textarea { resize: vertical; }
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(38,154,144,.15);
+}
+
+/* Inline radios/checkboxes */
+/* Checkbox groups (Allergies) */
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .75rem 1rem;
+  margin-top: .5rem;
+}
+
+.checkbox-grid label {
+  display: flex;
+  align-items: center;
+  gap: .5rem;          /* space between checkbox and text */
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.checkbox-grid input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--teal); /* teal checkboxes */
+}
+
+
+/* Section headings inside form */
+.section-subheading {
+  margin: 1.25rem 0 .75rem;
+  padding-bottom: .35rem;
+  border-bottom: 2px solid #eee;
+  font-weight: 700;
+  color: #444;
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--teal);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: .9rem 1.6rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .08s ease, background .2s ease;
+}
+.btn-primary:hover { background: #1f7f73; }
+.btn-primary:active { transform: translateY(1px); }
+.wide { display: block; width: 100%; margin-top: .25rem; }
+
+/* Summary */
+.summary {
+  background: #f5faf9;
+  border: 1px dashed rgba(38,154,144,.35);
+  color: #1c4e4a;
+  padding: .75rem 1rem;
+  border-radius: 10px;
+  margin: .25rem 0 1.25rem;
+  font-weight: 600;
+}
+
+/* Note */
+.submit-note {
+  margin-top: .75rem;
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 860px) { .checkbox-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 640px) {
+  .form-row { grid-template-columns: 1fr; }
+  .booking-card { padding: 1.5rem 1.25rem; border-radius: 12px; }
+}
