@@ -400,6 +400,7 @@ a {
 
 .nav-category li {
   margin: 0.5rem 0;
+   color: #fff;
 }
 
 .nav-menu a {
@@ -791,4 +792,5 @@ h2 {
   .nav-category {
     min-width: 100%;
   }
+
 }
