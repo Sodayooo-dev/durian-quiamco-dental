@@ -35,27 +35,37 @@ document.querySelectorAll('.nav-menu a').forEach(link => {
   });
 });
 
-
-
 // =======================
-// Hero slider autoplay
+// Floating elements parallax effect for hero section
 // =======================
-let currentSlide = 0;
-const slides = document.querySelectorAll('.slide');
-
-function showSlide(i) {
-  slides.forEach((slide, idx) => {
-    slide.classList.remove('active');
-    if (idx === i) slide.classList.add('active');
+window.addEventListener('scroll', () => {
+  const scrolled = window.pageYOffset;
+  const parallaxElements = document.querySelectorAll('.floating-element');
+  
+  parallaxElements.forEach((element, index) => {
+    const speed = 0.5 + (index * 0.1);
+    const yPos = -(scrolled * speed);
+    element.style.transform = `translateY(${yPos}px)`;
   });
-}
+});
 
-function nextSlide() {
-  currentSlide = (currentSlide + 1) % slides.length;
-  showSlide(currentSlide);
-}
-
-setInterval(nextSlide, 5000);
+// =======================
+// Smooth scrolling for anchor links
+// =======================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      const headerHeight = document.querySelector('.header').offsetHeight;
+      const targetPosition = target.offsetTop - headerHeight;
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    }
+  });
+});
 
 // =======================
 // Staggered fade-in animations for sections
@@ -102,6 +112,9 @@ createObserver(serviceCards);
 createObserver(featureCards);
 createObserver(doctorCards);
 
+// =======================
+// Back to top button
+// =======================
 const backToTopBtn = document.getElementById('back-to-top');
 
 // Show/hide button on scroll

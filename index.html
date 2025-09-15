@@ -11,103 +11,110 @@
   <title>Durian-Quiamco Dental Clinic</title>
 </head>
 <body>
-  <!-- Hero Slider -->
-  <section class="hero-slider" id="home">
-    <div class="slider-container">
-      <div class="slide active" style="background-image: url(./images/clinic.jpg);">
-        <div class="slide-content">
-          <h1>Professional Dental Care You Can Trust</h1>
-          <a href="./booking.html" class="btn btn-primary">Book Appointment</a>
-        </div>
-      </div>
-      <div class="slide" style="background-image: url('https://via.placeholder.com/1600x800?text=Dental+Care+2');">
-        <div class="slide-content">
-          <h1>Brighten Your Smile with Us</h1>
-          <a href="#services" class="btn btn-outline">Our Services</a>
-        </div>
-      </div>
-      <div class="slide" style="background-image: url('https://via.placeholder.com/1600x800?text=Dental+Care+3');">
-        <div class="slide-content">
-          <h1>Gentle, Compassionate Dentistry</h1>
-          <a href="#about" class="btn btn-primary">Learn More</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Header -->
   <header class="header">
-  <div class="header-inner">
-    <div class="logo">
-      <img src="./images/logo.png" alt="Clinic Logo" class="logo-img">
-      <span class="logo-text">Durian-Quiamco Dental Clinic</span>
+    <div class="header-inner">
+      <div class="logo">
+        <img src="./images/logo.png" alt="Clinic Logo" class="logo-img">
+        <span class="logo-text">Durian-Quiamco Dental Clinic</span>
+      </div>
+      <div class="header-buttons">
+        <button class="menu-btn" id="menuBtn">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span class="menu-text">Menu</span>
+        </button>
+        <a href="#" class="btn btn-small">Register/Login</a>
+      </div>
     </div>
-    <div class="header-buttons">
-      <button class="menu-btn" id="menuBtn">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span class="menu-text">Menu</span>
-      </button>
-      <a href="#" class="btn btn-small">Register/Login</a>
+  </header>
+
+  <!-- Hero Section with Moving Images -->
+<!-- Hero Section with Moving Images -->
+<section id="home" class="hero">
+  <div class="hero-background">
+    <div class="floating-element">
+      <img src="./images/dental-care-1.jpg" alt="Dental Care">
+    </div>
+    <div class="floating-element">
+      <img src="./images/modern-equipment.jpg" alt="Modern Equipment">
+    </div>
+    </div>
+    <div class="floating-element">
+      <img src="./images/clean-clinic.jpg" alt="Clean Clinic">
+    </div>
+    <div class="floating-element">
+      <img src="./images/professional-team.jpg" alt="Professional Team">
+    </div>
+    <div class="floating-element">
+      <img src="./images/smile-results.jpg" alt="Smile Results">
     </div>
   </div>
-</header>
 
-
+  <div class="hero-content">
+    <div class="hero-subtitle">Professional Dental Care</div>
+    <h1 class="hero-title">Experience the</h1>
+    <h2 class="hero-title-secondary">Finest in Dental Care</h2>
+    <p class="hero-description">
+      Exceptional Dental Services for a Healthier, Brighter Smile.<br>
+      Advanced Treatments and Personalized Care for Your Unique Smile
+    </p>
+    <div class="hero-buttons">
+      <a href="./booking.html" class="btn-hero-primary">
+        <i class="fas fa-calendar-alt"></i>
+        Book Appointment
+      </a>
+      <a href="#services" class="btn-hero-secondary">
+        <i class="fas fa-arrow-right"></i>
+        Our Services
+      </a>
+    </div>
+  </div>
+</section>
 
   <!-- Fullscreen Navigation -->
-<div class="nav-overlay" id="navOverlay">
-  <button class="nav-close" id="navClose">&times;</button>
-
-  <!-- Keep the class name .nav-menu so your existing JS continues to work -->
-  <div class="nav-menu">
-    <!-- Category 1 -->
-    <div class="nav-category">
-      <h3>Navigation</h3>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="./booking.html">Book an Appointment</a></li>
-        <li><a href="#">Send us a Message</a></li>
-      </ul>
-    </div>
-
-    <!-- Category 2 -->
-    <div class="nav-category">
-      <h3>Services</h3>
-      <ul>
-        <li><a href="#">General Dentistry</a></li>
-        <li><a href="#">Pediatric Dentistry</a></li>
-        <li><a href="#">Cosmetic Dentistry</a></li>
-        <li><a href="#">Restorative Care</a></li>
-      </ul>
-    </div>
-
-    <!-- Category 3 -->
-    <div class="nav-category">
-      <h3>Community</h3>
-      <ul>
-        <li><a href="#">Customer Reviews</a></li>
-        <li><a href="#">News and Media</a></li>
-        <li><a href="https://www.facebook.com/profile.php?id=61565522143241" target="_blank">Facebook</a></li>
-      </ul>
-    </div>
-
-    <!-- Category 4 -->
-    <div class="nav-category">
-      <h3>Company</h3>
-      <ul>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Mission and Vision</a></li>
-        <li><a href="#">Our Purpose</a></li>
-        <li><a href="#">Our Values</a></li>
-        <li><a href="#">Careers</a></li>
-        <li><a href="#">Employees</a></li>
-      </ul>
+  <div class="nav-overlay" id="navOverlay">
+    <button class="nav-close" id="navClose">&times;</button>
+    <div class="nav-menu">
+      <div class="nav-category">
+        <h3>Navigation</h3>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="./booking.html">Book an Appointment</a></li>
+          <li><a href="#">Send us a Message</a></li>
+        </ul>
+      </div>
+      <div class="nav-category">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="#">General Dentistry</a></li>
+          <li><a href="#">Pediatric Dentistry</a></li>
+          <li><a href="#">Cosmetic Dentistry</a></li>
+          <li><a href="#">Restorative Care</a></li>
+        </ul>
+      </div>
+      <div class="nav-category">
+        <h3>Community</h3>
+        <ul>
+          <li><a href="#">Customer Reviews</a></li>
+          <li><a href="#">News and Media</a></li>
+          <li><a href="https://www.facebook.com/profile.php?id=61565522143241" target="_blank">Facebook</a></li>
+        </ul>
+      </div>
+      <div class="nav-category">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="about-us.html">About Us</a></li>
+          <a>- Mission and Vision</a>
+          <li><a href="#">Our Purpose</a></li>
+          <li><a href="#">Our Values</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Employees</a></li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
-
 
   <!-- About Section -->
   <section id="about" class="about-section">
@@ -121,36 +128,35 @@
     </div>
   </section>
 
-<!-- Services Section -->
-<section id="services" class="services-section">
-  <div class="section-content">
-    <h2>Our Expert Dental Services</h2>
-    <p>Advanced Treatments and Personalized Care for Your Unique Smile</p>
-    <div class="services-grid">
-      <div class="service-card">
-        <img src="https://img.icons8.com/ios-filled/50/269A90/tooth.png" alt="General Dentistry">
-        <h3>General Dentistry</h3>
-        <p>Routine checkups, cleanings, and preventive care.</p>
-      </div>
-      <div class="service-card">
-        <img src="https://img.icons8.com/ios-filled/50/269A90/teeth-whitening.png" alt="Cosmetic Dentistry">
-        <h3>Cosmetic Dentistry</h3>
-        <p>Whitening, veneers, and smile makeovers.</p>
-      </div>
-      <div class="service-card">
-        <img src="https://img.icons8.com/ios-filled/50/269A90/dental-crown.png" alt="Restorative Care">
-        <h3>Restorative Care</h3>
-        <p>Crowns, bridges, and implants to restore your smile.</p>
-      </div>
-      <div class="service-card">
-        <img src="https://img.icons8.com/ios-filled/50/269A90/baby.png" alt="Pediatric Dentistry">
-        <h3>Pediatric Dentistry</h3>
-        <p>Gentle care tailored for children.</p>
+  <!-- Services Section -->
+  <section id="services" class="services-section">
+    <div class="section-content">
+      <h2>Our Expert Dental Services</h2>
+      <p>Advanced Treatments and Personalized Care for Your Unique Smile</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <img src="https://img.icons8.com/ios-filled/50/269A90/tooth.png" alt="General Dentistry">
+          <h3>General Dentistry</h3>
+          <p>Routine checkups, cleanings, and preventive care.</p>
+        </div>
+        <div class="service-card">
+          <img src="https://img.icons8.com/ios-filled/50/269A90/dental-crown.png" alt="Cosmetic Dentistry">
+          <h3>Cosmetic Dentistry</h3>
+          <p>Whitening, veneers, and smile makeovers.</p>
+        </div>
+        <div class="service-card">
+          <img src="https://img.icons8.com/ios-filled/50/269A90/dental-crown.png" alt="Restorative Care">
+          <h3>Restorative Care</h3>
+          <p>Crowns, bridges, and implants to restore your smile.</p>
+        </div>
+        <div class="service-card">
+          <img src="https://img.icons8.com/ios-filled/50/269A90/baby.png" alt="Pediatric Dentistry">
+          <h3>Pediatric Dentistry</h3>
+          <p>Gentle care tailored for children.</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
-
+  </section>
 
   <!-- Why Choose Us -->
   <section id="why" class="why-section">
@@ -166,72 +172,62 @@
   </section>
 
   <!-- Doctors Section -->
-   <section id="doctors" class="doctors-section">
-   <div class="section-content">
-    <h2>Our Doctors</h2>
-    <p>Our team of licensed professionals is dedicated to providing gentle, compassionate dental care.</p>
-<div class="doctor-grid">
-  <div class="doctor-card">
-    <div class="doctor-image">
-      <img src="images/dr_Rvee.jpg" alt="Dr. Rvee Abuzo">
-    </div>
-    <h3>Dr. Rvee Abuzo</h3>
-    <p>Orthodontist</p>
-  </div>
-  <div class="doctor-card">
-    <div class="doctor-image">
-      <img src="images/dr_Jirho.jpg" alt="Dr. Jirho Enciso">
-    </div>
-    <h3>Dr. Jirho Enciso</h3>
-    <p>General Dentist</p>
-  </div>
-  <div class="doctor-card">
-    <div class="doctor-image">
-      <img src="images/dr_Miguel.jpg" alt="Dr. Miguel Tumaliuan">
-    </div>
-    <h3>Dr. Miguel Tumaliuan</h3>
-    <p>Assistant Dentist</p>
-    </div>
-  </div>
-</div>
-</section>
-
-
-  <!-- Contact Section -->
-<section id="contact" class="contact-section">
-  <div class="section-content">
-
-    <!-- Centered heading -->
-    <h2 class="contact-heading">Contact Us</h2>
-
-    <!-- Two-column grid -->
-    <div class="contact-grid">
-      
-      <!-- Left: Logo + Brand -->
-      <div class="contact-brand">
-        <img src="./images/logo.png" alt="Clinic Logo" class="contact-logo">
-        <h3 class="brand-name">Durian-Quiamco Dental Clinic</h3>
-      </div>
-      
-      <!-- Right: Contact Info -->
-      <div class="contact-details">
-        <p>Have questions or want to book an appointment? Reach out today.</p>
-        <div class="contact-info">
-          <p><i class="fas fa-phone"></i> 09216467594</p>
-          <p><i class="fas fa-clock"></i> Mon–Sat, 9:00 AM – 6:00 PM</p>
-          <p><i class="fas fa-map-marker-alt"></i> Natappian West & Centro Solana, Solana, Philippines, 3503</p>
+  <section id="doctors" class="doctors-section">
+    <div class="section-content">
+      <h2>Our Doctors</h2>
+      <p>Our team of licensed professionals is dedicated to providing gentle, compassionate dental care.</p>
+      <div class="doctor-grid">
+        <div class="doctor-card">
+          <div class="doctor-image">
+            <img src="images/dr_Rvee.jpg" alt="Dr. Rvee Abuzo">
+          </div>
+          <h3>Dr. Rvee Abuzo</h3>
+          <p>Orthodontist</p>
+        </div>
+        <div class="doctor-card">
+          <div class="doctor-image">
+            <img src="images/dr_Jirho.jpg" alt="Dr. Jirho Enciso">
+          </div>
+          <h3>Dr. Jirho Enciso</h3>
+          <p>General Dentist</p>
+        </div>
+        <div class="doctor-card">
+          <div class="doctor-image">
+            <img src="images/dr_Miguel.jpg" alt="Dr. Miguel Tumaliuan">
+          </div>
+          <h3>Dr. Miguel Tumaliuan</h3>
+          <p>Assistant Dentist</p>
         </div>
       </div>
-
     </div>
-  </div>
-</section>
+  </section>
 
+  <!-- Contact Section -->
+  <section id="contact" class="contact-section">
+    <div class="section-content">
+      <h2 class="contact-heading">Contact Us</h2>
+      <div class="contact-grid">
+        <div class="contact-brand">
+          <img src="./images/logo.png" alt="Clinic Logo" class="contact-logo">
+          <h3 class="brand-name">Durian-Quiamco Dental Clinic</h3>
+        </div>
+        <div class="contact-details">
+          <p>Have questions or want to book an appointment? Reach out today.</p>
+          <div class="contact-info">
+            <p><i class="fas fa-phone"></i> 09216467594</p>
+            <p><i class="fas fa-clock"></i> Mon–Sat, 9:00 AM – 6:00 PM</p>
+            <p><i class="fas fa-map-marker-alt"></i> Natappian West & Centro Solana, Solana, Philippines, 3503</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer class="footer">
     <p>&copy; 2025 Durian-Quiamco Dental Clinic. All rights reserved.</p>
   </footer>
+
   <button id="back-to-top" title="Back to top">&#8679;</button>
 
   <script src="./js/script.js"></script>

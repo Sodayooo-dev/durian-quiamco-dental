@@ -1,0 +1,77 @@
+<?php
+$servername = "localhost:3306";
+$username = "root";
+$password = "hyowawa123";
+$dbname = "durian_quiamco";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+//Required
+$name = $_REQUEST['name'] ?? null;
+$birthdate = $_REQUEST['birthdate'] ?? null;
+$age = $_REQUEST['age'] ?? null;
+$sex = $_REQUEST['sex'] ?? null;
+$homeAddress = $_REQUEST['homeAddress'] ?? null;
+$mobile = $_REQUEST['mobile'] ?? null;
+$medCondition = $_REQUEST['medCondition'] ?? null;
+
+//Not Required
+$religion = $_REQUEST['religion'] ?? "Prefer not to say";
+$nationality = $_REQUEST['nationality'] ?? "Prefer not to say";
+$occupation = $_REQUEST['occupation'] ?? "Prefer not to say";
+$email = $_REQUEST['email'] ?? "Prefer not to say";
+$referrer = $_REQUEST['referrer'] ?? "Prefer not to say";
+$prevDentist = $_REQUEST['prevDentist'] ?? "Prefer not to say";
+$lastVisit = $_REQUEST['lastVisit'] ?? null;
+$reason = $_REQUEST['reason'] ?? "Prefer not to say";
+$physician = $_REQUEST['physician'] ?? "Prefer not to say";
+$physicianOffice = $_REQUEST['physicianOffice'] ?? "Prefer not to say";
+$surgeryDetails = $_REQUEST['surgeryDetails'] ?? "Prefer not to say";
+$medications = $_REQUEST['medications'] ?? "Prefer not to say";
+$otherAllergies = $_REQUEST['otherAllergies'] ?? "None";
+$bloodType = $_REQUEST['bloodType'] ?? "NA";
+$bloodPressure = $_REQUEST['bloodPressure'] ?? "0";
+//For Women
+$pregnant = $_REQUEST['pregnant'] ?? "No";
+$nursing = $_REQUEST['nursing'] ?? "No";
+$birth_cont = $_REQUEST['birth_cont'] ?? "No";
+
+
+// SQL insert
+if (!empty($name) && !empty($birthdate) && !empty($age) && 
+    !empty($sex) && !empty($homeAddress) && !empty($mobile) && !empty($medCondition)) {
+    $stmt = $conn->prepare("INSERT INTO patient (
+        full_name, birthdate, age, sex, home_add, contact_no, good_health,
+        religion, nationality, occupation, email, refby, prev_dentist, last_dent_visit, res_for_cons, physician_name,
+        office_cont, hos_sur, cur_med, allergies, blood_type, blood_pressure, pregnant, nursing, bir_con_pills
+    ) VALUES (
+        ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?, ?, ?
+    )");
+
+    $stmt->bind_param("ssississsssssssssssssisss",
+         $name, $birthdate, $age, $sex, $homeAddress, $mobile, $medCondition,
+        $religion, $nationality, $occupation, $email, $referrer, $prevDentist, $lastVisit, 
+        $reason, $physician, $physicianOffice, $surgeryDetails, $medications, $otherAllergies, $bloodType, $bloodPressure,
+        $pregnant, $nursing, $birth_cont
+        );
+    
+    if ($stmt->execute()) {
+        echo "Personal details saved";
+    } else {
+        echo "Error";
+    }
+    $stmt->close();
+} else {
+    echo "There's a missing input.";
+}
+
+$conn->close();
+?>

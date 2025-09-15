@@ -1,0 +1,162 @@
+function submitDataToDB() {
+    //REQUIRED
+    const name = document.getElementById("name").value;
+    const birthdate = document.getElementById("birthdate").value;
+    const age = document.getElementById("age").value;
+    const sex = document.getElementById("sex").value;
+    const homeAddress = document.getElementById("homeAddress").value;
+    const mobile = document.getElementById("mobile").value;
+    const medCondition = document.getElementById("medCondition").value;
+    //NOT-REQUIRED
+    const religion = checkInput(document.getElementById("religion").value);
+    const nationality = checkInput(document.getElementById("nationality").value);
+    const occupation = checkInput(document.getElementById("occupation").value);
+    const email = checkInput(document.getElementById("email").value);
+    const refBy = checkInput(document.getElementById("referrer").value);
+    const prevDent = checkInput(document.getElementById("prevDentist").value);
+    const lastDentVisit = checkInput(document.getElementById("lastVisit").value);
+    const resForConsult = checkInput(document.getElementById("reason").value);
+    const physician = checkInput(document.getElementById("physician").value);
+    const officeContact = checkInput(document.getElementById("physicianOffice").value);
+    let healthy, surgery;
+    if (document.getElementById("gHealthY").checked) {
+      healthy = checkInput(document.getElementById("medCondition").value);
+    } else {healthy = "N/A";}
+    if (document.getElementById("gHealthY").checked) {
+      surgery = checkInput(document.getElementById("medCondition").value);
+    } else {surgery = "N/A";}
+    const medications = checkInput(document.getElementById("medications").value);
+    const allergy = checkAllergies();
+    const bloodType = checkInput(document.getElementById("bloodType").value);
+    const bloodPressure = checkInput(document.getElementById("bloodPressure").value);
+    const pregy = pregnant();
+    const nurs = nursing();
+    const bcpills = birthContPills();
+
+    let params = new URLSearchParams();
+    //Required
+    params.append("name", name);
+    params.append("birthdate", birthdate);
+    params.append("age", age);
+    params.append("sex", sex);
+    params.append("homeAddress", homeAddress);
+    params.append("mobile", mobile);
+    params.append("medCondition", medCondition);
+
+    fetch("./js/personal_info_to_db.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: params.toString()
+    })
+    .then(response => response.text())
+    .then(data => { alert(data); })
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <?php
+$servername = "localhost:3306";
+$username = "root";
+$password = "hyowawa123";
+$dbname = "durian_quiamco";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+//Required
+$name = $_REQUEST['name'] ?? null;
+$birthdate = $_REQUEST['birthdate'] ?? null;
+$age = $_REQUEST['age'] ?? null;
+$sex = $_REQUEST['sex'] ?? null;
+$homeAddress = $_REQUEST['homeAddress'] ?? null;
+$mobile = $_REQUEST['mobile'] ?? null;
+$medCondition = $_REQUEST['medCondition'] ?? null;
+//Optional
+$religion = $_REQUEST['religion'] ?? null;
+$nationality = $_REQUEST['nationality'] ?? null;
+$occupation = $_REQUEST['occupation'] ?? null;
+$email = $_REQUEST['email'] ?? null;
+$refBy = $_REQUEST['referrer'] ?? null;
+$prevDent = $_REQUEST['prevDentist'] ?? null;
+$lastDentVisit = $_REQUEST['lastVisit'] ?? null;
+$resForConsult = $_REQUEST['reason'] ?? null;
+$physician = $_REQUEST['physician'] ?? null;
+$officeContact = $_REQUEST['physicianOffice'] ?? null;
+$medications = $_REQUEST['medication'] ?? null;
+$allergy = $_REQUEST['allergy'] ?? null;
+$bloodType = $_REQUEST['bloodType'] ?? null;
+$bloodPressure = $_REQUEST['bloodPressure'] ?? null;
+$pregy = $_REQUEST['pregy'] ?? null;
+$nurs = $_REQUEST['nurs'] ?? null;
+$bcpills = $_REQUEST['bcpills'] ?? null;
+$undr_trtmnt = $_REQUEST['undr_trtmnt'] ?? null;
+$surgery = $_REQUEST['surgery'] ?? null;
+
+
+
+// SQL insert
+if (!empty($name) && !empty($birthdate) && !empty($age) && 
+    !empty($sex) && !empty($homeAddress) && !empty($mobile) && !empty($medCondition)) {
+    $stmt = $conn->prepare("INSERT INTO patient (
+        full_name, birthdate, age, sex, home_add, contact_no, und_treatment
+    ) VALUES (
+        ?, ?, ?, ?, ?, ?, ?
+    )");
+
+    $stmt->bind_param("ssissis",
+         $name, $birthdate, $age, $sex, $homeAddress, $mobile, $medCondition
+        );
+    
+    if ($stmt->execute()) {
+        echo "Personal details saved";
+    } else {
+        echo "Error";
+    }
+    $stmt->close();
+} else {
+    echo "There's a missing input.";
+}
+
+$conn->close();
+?>

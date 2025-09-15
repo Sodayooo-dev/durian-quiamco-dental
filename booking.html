@@ -45,7 +45,7 @@
         <!-- Selected appointment summary -->
         <div class="summary" id="apptSummary"></div>
 
-        <form id="bookingForm" action="process_booking.php" method="POST">
+        <form id="bookingForm" method="POST">
           <!-- Hidden values for PHP (filled by JS) -->
           <input type="hidden" name="appointment_date" id="hiddenAppointmentDate" />
           <input type="hidden" name="appointment_time" id="hiddenAppointmentTime" />
@@ -55,7 +55,7 @@
 
           <div class="form-group">
             <label for="name">Full Name*</label>
-            <input type="text" id="name" name="name" required />
+            <input type="text" id="name" name="name" autocomplete="off" required />
           </div>
 
           <div class="form-row">
@@ -107,7 +107,7 @@
           <div class="form-row">
             <div class="form-group">
               <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" />
+              <input type="email" id="email" name="email" autocomplete="off"/>
             </div>
             <div class="form-group">
               <label for="referrer">Referred By</label>
@@ -149,25 +149,25 @@
           </div>
 
           <div class="form-group-inline">
-            <span class="inline-label">Are you in good health?*</span>
-            <label><input type="radio" name="goodHealth" value="Yes" required /> Yes</label>
-            <label><input type="radio" name="goodHealth" value="No" /> No</label>
+            <span class="inline-label">Are you in good health?</span>
+            <label><input type="radio" name="goodHealth" value="Yes" id="gHealthY" /> Yes</label>
+            <label><input type="radio" name="goodHealth" value="No" id="gHealthN"/> No</label>
           </div>
 
           <div class="form-group">
             <label for="medCondition">If under treatment, specify condition</label>
-            <input type="text" id="medCondition" name="medCondition" />
+            <input type="text" id="medCondition" name="medCondition" disabled="true" />
           </div>
 
           <div class="form-group-inline">
             <span class="inline-label">Hospitalized or had surgery?</span>
-            <label><input type="radio" name="hospitalized" value="Yes" /> Yes</label>
-            <label><input type="radio" name="hospitalized" value="No" /> No</label>
+            <label><input type="radio" name="hospitalized" value="Yes" id="hoSurY"/> Yes</label>
+            <label><input type="radio" name="hospitalized" value="No" id="hoSurN"/> No</label>
           </div>
 
           <div class="form-group">
             <label for="surgeryDetails">If yes, specify</label>
-            <input type="text" id="surgeryDetails" name="surgeryDetails" />
+            <input type="text" id="surgeryDetails" name="surgeryDetails" disabled="true"/>
           </div>
 
           <div class="form-group">
@@ -178,18 +178,18 @@
           <div class="form-group">
             <span class="inline-label">Allergies (check all that apply)</span>
             <div class="checkbox-grid">
-              <label><input type="checkbox" name="allergies[]" value="Local Anesthetic" /> Local Anesthetic</label>
-              <label><input type="checkbox" name="allergies[]" value="Penicillin" /> Penicillin</label>
-              <label><input type="checkbox" name="allergies[]" value="Sulfa" /> Sulfa drugs</label>
-              <label><input type="checkbox" name="allergies[]" value="Aspirin" /> Aspirin</label>
-              <label><input type="checkbox" name="allergies[]" value="Latex" /> Latex</label>
-              <label><input type="checkbox" name="allergies[]" value="Others" /> Others</label>
+              <label><input type="checkbox" name="allergies[]" value="Local Anesthetic" id="locAnesth" autocomplete="off"/> Local Anesthetic</label>
+              <label><input type="checkbox" name="allergies[]" value="Penicillin" id="penicillin" autocomplete="off"/> Penicillin</label>
+              <label><input type="checkbox" name="allergies[]" value="Sulfa" id="sulfa" autocomplete="off"/> Sulfa drugs</label>
+              <label><input type="checkbox" name="allergies[]" value="Aspirin" id="aspirin" autocomplete="off"/> Aspirin</label>
+              <label><input type="checkbox" name="allergies[]" value="Latex" id="latex" autocomplete="off"/> Latex</label>
+              <label><input type="checkbox" name="allergies[]" value="Others" id="otherAllergiesCB" autocomplete="off"/> Others</label>
             </div>
           </div>
 
           <div class="form-group">
             <label for="otherAllergies">If others, specify</label>
-            <input type="text" id="otherAllergies" name="otherAllergies" />
+            <input type="text" id="otherAllergies" name="otherAllergies" disabled="true" />
           </div>
 
           <div class="form-row">
@@ -207,29 +207,29 @@
           <div class="section-subheading">For Women</div>
           <div class="form-group-inline">
             <span class="inline-label">Pregnant?</span>
-            <label><input type="radio" name="pregnant" value="Yes" /> Yes</label>
+            <label><input type="radio" name="pregnant" value="Yes" id="pregy"/> Yes</label>
             <label><input type="radio" name="pregnant" value="No" /> No</label>
           </div>
 
           <div class="form-group-inline">
             <span class="inline-label">Nursing?</span>
-            <label><input type="radio" name="nursing" value="Yes" /> Yes</label>
+            <label><input type="radio" name="nursing" value="Yes" id="nurs"/> Yes</label>
             <label><input type="radio" name="nursing" value="No" /> No</label>
           </div>
 
           <div class="form-group-inline">
             <span class="inline-label">Using birth control pills?</span>
-            <label><input type="radio" name="birthControl" value="Yes" /> Yes</label>
+            <label><input type="radio" name="birthControl" value="Yes" id="bcpills"/> Yes</label>
             <label><input type="radio" name="birthControl" value="No" /> No</label>
           </div>
 
-          <button type="submit" class="btn-primary">Submit Appointment</button>
+          <button type="submit" class="btn-primary" >Submit Appointment</button>
           <p class="submit-note">This form will be sent securely. You can finalize the schedule after confirmation.</p>
         </form>
       </div>
     </div>
   </section>
-
+  
   <script src="./js/booking.js"></script>
 </body>
 </html>
