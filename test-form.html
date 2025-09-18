@@ -1,22 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Book Appointment - Durian-Quiamco Dental Clinic</title>
   <link href="https://fonts.googleapis.com/css?family=Kulim+Park:300,400,600,700&display=swap" rel="stylesheet">
   <style>
-    /* Base */
-    :root { --teal:#269A90; --text:#333; --muted:#777; --bg:#f7f9f9; }
-    * { box-sizing: border-box; }
+    /* === CSS VARIABLES === */
+    :root {
+      --primary-color: #269A90;
+      --primary-dark: #1f7f73;
+      --text-color: #333;
+      --text-muted: #777;
+      --background-color: #f7f9f9;
+      --white: #ffffff;
+      --border-color: #ddd;
+      --success-bg: #f5faf9;
+      --error-bg: #f8d7da;
+      --error-text: #721c24;
+      --error-border: #f5c6cb;
+      --shadow-light: 0 10px 30px rgba(0,0,0,0.08);
+      --shadow-modal: 0 25px 50px rgba(0, 0, 0, 0.25);
+      --border-radius: 8px;
+      --border-radius-large: 14px;
+      --transition: all 0.3s ease;
+    }
+
+    /* === BASE STYLES === */
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: 'Kulim Park', sans-serif;
-      color: var(--text);
-      background: var(--bg);
+      color: var(--text-color);
+      background: var(--background-color);
+      line-height: 1.6;
     }
 
-    /* Layout */
+    /* === LAYOUT === */
     .booking-section {
       min-height: 100vh;
       display: flex;
@@ -28,79 +51,144 @@
     .booking-card {
       width: 100%;
       max-width: 980px;
-      background: #fff;
-      border-radius: 14px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      padding: 2rem 2rem 2.4rem;
+      background: var(--white);
+      border-radius: var(--border-radius-large);
+      box-shadow: var(--shadow-light);
+      padding: 2rem;
     }
 
-    /* Steps */
-    .booking-step { display: none; animation: stepFadeIn 280ms ease-out both; }
-    .booking-step.active { display: block; }
+    /* === STEP MANAGEMENT === */
+    .booking-step {
+      display: none;
+      animation: stepFadeIn 280ms ease-out both;
+    }
+
+    .booking-step.active {
+      display: block;
+    }
+
+    @keyframes stepFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* === TYPOGRAPHY === */
     h2 {
       text-align: center;
-      color: var(--teal);
+      color: var(--primary-color);
       margin: 0 0 1.25rem;
       font-weight: 700;
+      font-size: 1.8rem;
     }
 
-    /* Form anatomy */
+    .section-subheading {
+      margin: 1.25rem 0 0.75rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 2px solid #eee;
+      font-weight: 700;
+      color: #444;
+      font-size: 1.1rem;
+    }
+
+    /* === FORM STYLES === */
     .form-row {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1rem;
       margin-bottom: 1rem;
     }
 
-    .form-group { margin-bottom: 1rem; }
-    .form-group label { font-weight: 600; display: block; margin-bottom: .5rem; }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
     .form-group input,
     .form-group select,
     .form-group textarea {
       width: 100%;
-      padding: .8rem .9rem;
-      border: 1px solid #ddd;
-      border-radius: 8px;
+      padding: 0.8rem 0.9rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
       font-size: 1rem;
       outline: none;
-      transition: border-color .2s, box-shadow .2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      font-family: inherit;
     }
-    .form-group textarea { resize: vertical; }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
-      border-color: var(--teal);
-      box-shadow: 0 0 0 3px rgba(38,154,144,.15);
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(38, 154, 144, 0.15);
     }
 
-    /* Inline radios/checkboxes */
+    .form-group input:disabled,
+    .form-group textarea:disabled {
+      background-color: #f5f5f5;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    /* === INLINE FORM ELEMENTS === */
     .form-group-inline {
       margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
 
     .inline-label {
       font-weight: 600;
       margin-right: 1rem;
+      min-width: 200px;
     }
 
     .form-group-inline label {
       margin-right: 1rem;
       font-weight: 500;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
     }
 
-    /* Checkbox groups (Allergies) */
+    .form-group-inline input[type="radio"],
+    .form-group-inline input[type="checkbox"] {
+      width: auto;
+      margin: 0;
+    }
+
+    /* === CHECKBOX GRID === */
     .checkbox-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: .75rem 1rem;
-      margin-top: .5rem;
+      gap: 0.75rem 1rem;
+      margin-top: 0.5rem;
     }
 
     .checkbox-grid label {
       display: flex;
       align-items: center;
-      gap: .5rem;
+      gap: 0.5rem;
       font-weight: 500;
       cursor: pointer;
     }
@@ -108,415 +196,358 @@
     .checkbox-grid input[type="checkbox"] {
       width: 18px;
       height: 18px;
-      accent-color: var(--teal);
+      accent-color: var(--primary-color);
     }
 
-    /* Section headings inside form */
-    .section-subheading {
-      margin: 1.25rem 0 .75rem;
-      padding-bottom: .35rem;
-      border-bottom: 2px solid #eee;
-      font-weight: 700;
-      color: #444;
-    }
-
-    /* Buttons */
+    /* === BUTTONS === */
     .btn-primary {
-      background: var(--teal);
-      color: #fff;
+      background: var(--primary-color);
+      color: var(--white);
       border: none;
       border-radius: 10px;
-      padding: .9rem 1.6rem;
+      padding: 0.9rem 1.6rem;
       font-size: 1.05rem;
       font-weight: 700;
       cursor: pointer;
-      transition: transform .08s ease, background .2s ease;
-      font-family: 'Kulim Park', sans-serif;
+      transition: transform 0.08s ease, background 0.2s ease;
+      font-family: inherit;
     }
-    .btn-primary:hover { background: #1f7f73; }
-    .btn-primary:active { transform: translateY(1px); }
-    .btn-primary:disabled { 
-      background: #ccc; 
-      cursor: not-allowed; 
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-primary:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary:disabled {
+      background: #ccc;
+      cursor: not-allowed;
       opacity: 0.7;
     }
-    .wide { display: block; width: 100%; margin-top: .25rem; }
 
-    /* Summary */
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+      border-radius: 12px;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary-color);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+
+    .wide {
+      display: block;
+      width: 100%;
+      margin-top: 0.25rem;
+    }
+
+    /* === APPOINTMENT SUMMARY === */
     .summary {
-      background: #f5faf9;
-      border: 1px dashed rgba(38,154,144,.35);
+      background: var(--success-bg);
+      border: 1px dashed rgba(38, 154, 144, 0.35);
       color: #1c4e4a;
-      padding: .75rem 1rem;
+      padding: 0.75rem 1rem;
       border-radius: 10px;
-      margin: .25rem 0 1.25rem;
+      margin: 0.25rem 0 1.25rem;
       font-weight: 600;
     }
 
-    /* Note */
     .submit-note {
-      margin-top: .75rem;
-      color: var(--muted);
-      font-size: .95rem;
+      margin-top: 0.75rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      text-align: center;
     }
 
-    /* Form step animations */
-    @keyframes stepFadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Success Modal Styles */
+    /* === SUCCESS MODAL === */
     #successModal {
-      display: none !important;
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 999999;
+      background: linear-gradient(135deg, rgba(38, 154, 144, 0.95) 0%, rgba(50, 151, 139, 0.95) 100%);
     }
 
     #successModal.show {
-      display: flex !important;
-      position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      width: 100vw !important;
-      height: 100vh !important;
-      justify-content: center !important;
-      align-items: center !important;
-      z-index: 999999 !important;
-      background: linear-gradient(135deg, rgba(38, 154, 144, 0.95) 0%, rgba(50, 151, 139, 0.95) 100%) !important;
-      animation: modalFadeIn 0.3s ease-out !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: modalFadeIn 0.3s ease-out;
     }
 
-    #successModal .modal-content {
-      background: white !important;
-      border-radius: 24px !important;
-      max-width: 650px !important;
-      width: 95% !important;
-      max-height: 90vh !important;
-      overflow-y: auto !important;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25), 0 10px 25px rgba(38, 154, 144, 0.2) !important;
-      animation: modalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
-      font-family: 'Kulim Park', Arial, sans-serif !important;
-      position: relative !important;
-      z-index: 1000000 !important;
-      margin: 2rem !important;
+    .modal-content {
+      background: var(--white);
+      border-radius: 24px;
+      max-width: 650px;
+      width: 95%;
+      max-height: 95vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-modal), 0 10px 25px rgba(38, 154, 144, 0.2);
+      animation: modalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      margin: 2rem;
+      text-align: center;
     }
 
-    #successModal .modal-content,
-    #successModal .modal-content * {
-      text-align: center !important;
+    .modal-header {
+      background: linear-gradient(135deg, #269A90 0%, #32978b 50%, #1e8a80 100%);
+      padding: 2rem;
+      border-radius: 24px 24px 0 0;
+      flex-shrink: 0;
     }
 
-    #successModal .modal-header {
-      background: linear-gradient(135deg, #269A90 0%, #32978b 50%, #1e8a80 100%) !important;
-      padding: 3rem !important;
-      text-align: center !important;
-      border-radius: 24px 24px 0 0 !important;
-      position: relative;
-      overflow: hidden;
-      width: 100% !important;
+    .modal-header h2 {
+      font-size: 1.8rem;
+      margin: 1rem auto 0;
+      color: var(--white);
     }
 
-    #successModal .modal-header h2 {
-      font-size: 2.2rem !important;
-      margin: 1.5rem auto 0 !important;
-      font-weight: 700 !important;
-      position: relative;
-      z-index: 1;
-      text-align: center !important;
-      width: 100% !important;
-      color: white !important;
+    .success-icon {
+      margin: 0 auto 1rem;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    #successModal .success-icon {
-      margin: 0 auto 1.5rem !important;
-      width: 100px !important;
-      height: 100px !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
+    .checkmark {
+      width: 80px;
+      height: 80px;
     }
 
-    #successModal .checkmark {
-      width: 100px !important;
-      height: 100px !important;
-      border-radius: 50%;
-      display: block;
-      stroke-width: 3;
-      stroke: white;
-      stroke-miterlimit: 10;
-      box-shadow: inset 0px 0px 0px white;
-      animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
-      position: relative;
-      filter: drop-shadow(0 4px 8px rgba(255, 255, 255, 0.3));
-    }
-
-    #successModal .checkmark-circle {
+    .checkmark-circle {
       stroke-dasharray: 166;
       stroke-dashoffset: 166;
       stroke-width: 3;
       stroke-miterlimit: 10;
-      stroke: white;
-      fill: none;
+      stroke: var(--white);
+      fill: rgba(255, 255, 255, 0.1);
       animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
-      width: 100px !important;
-      height: 100px !important;
-      border-radius: 50%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      border: 3px solid white;
     }
 
-    #successModal .checkmark-stem {
-      transform-origin: 50% 50%;
+    .checkmark-check {
       stroke-dasharray: 48;
       stroke-dashoffset: 48;
+      stroke: var(--white);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
       animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
-      position: absolute;
-      top: 36px;
-      left: 28px;
-      width: 15px;
-      height: 3px;
-      background: white;
-      transform: rotate(45deg);
     }
 
-    #successModal .checkmark-kick {
-      transform-origin: 50% 50%;
-      stroke-dasharray: 48;
-      stroke-dashoffset: 48;
-      animation: stroke 0.2s cubic-bezier(0.65, 0, 0.45, 1) 0.9s forwards;
-      position: absolute;
-      top: 44px;
-      left: 35px;
-      width: 25px;
-      height: 3px;
-      background: white;
-      transform: rotate(-45deg);
+    .modal-body {
+      padding: 1.5rem;
+      flex: 1;
+      overflow-y: auto;
     }
 
-    #successModal .modal-body {
-      padding: 3rem !important;
-      text-align: center !important;
-      background: linear-gradient(to bottom, #ffffff 0%, #f8fffe 100%) !important;
-      line-height: 1.7 !important;
-      width: 100% !important;
+    .main-message {
+      font-size: 1.3rem;
+      color: var(--primary-color);
+      margin: 0 auto 0.8rem;
+      font-weight: 600;
     }
 
-    #successModal .main-message {
-      font-size: 1.5rem !important;
-      color: #269A90 !important;
-      margin: 0 auto 1rem !important;
-      font-weight: 600 !important;
-      max-width: 500px !important;
-      text-align: center !important;
-      width: 100% !important;
+    .sub-message {
+      font-size: 1.1rem;
+      color: #666;
+      margin: 0 auto 1.5rem;
     }
 
-    #successModal .sub-message {
-      font-size: 1.2rem !important;
-      color: #666 !important;
-      margin: 0 auto 2.5rem !important;
-      max-width: 450px !important;
-      text-align: center !important;
-      width: 100% !important;
+    .next-steps {
+      background: linear-gradient(135deg, #f0f9f8 0%, #e8f5f4 100%);
+      border: 1px solid rgba(38, 154, 144, 0.1);
+      padding: 1.2rem;
+      border-radius: 12px;
+      margin: 1rem auto;
+      max-width: 500px;
     }
 
-    #successModal .next-steps {
-      background: linear-gradient(135deg, #f0f9f8 0%, #e8f5f4 100%) !important;
-      border: 1px solid rgba(38, 154, 144, 0.1) !important;
-      box-shadow: 0 2px 10px rgba(38, 154, 144, 0.05) !important;
-      padding: 2rem !important;
-      border-radius: 16px !important;
-      margin: 2rem auto !important;
-      max-width: 500px !important;
-      width: calc(100% - 4rem) !important;
-      text-align: center !important;
+    .next-steps h4 {
+      color: var(--primary-color);
+      margin: 0 auto 1rem;
+      font-size: 1.1rem;
+      font-weight: 700;
     }
 
-    #successModal .next-steps h4 {
-      color: #269A90 !important;
-      margin: 0 auto 1.5rem !important;
-      font-size: 1.3rem !important;
-      text-align: center !important;
-      font-weight: 700 !important;
-      width: 100% !important;
+    .next-steps ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
 
-    #successModal .next-steps ul {
-      list-style: none !important;
-      padding: 0 !important;
-      margin: 0 auto !important;
-      max-width: 400px !important;
-      text-align: center !important;
+    .next-steps li {
+      padding: 0.5rem 0;
+      color: #555;
+      font-size: 0.95rem;
     }
 
-    #successModal .next-steps li {
-      padding: 0.8rem 0 !important;
-      color: #555 !important;
-      font-size: 1.1rem !important;
-      text-align: center !important;
-      width: 100% !important;
+    .contact-info {
+      background: rgba(38, 154, 144, 0.05);
+      padding: 1.2rem;
+      border-radius: 12px;
+      margin: 1rem auto 0;
+      border: 1px solid rgba(38, 154, 144, 0.1);
     }
 
-    #successModal .contact-info {
-      background: rgba(38, 154, 144, 0.05) !important;
-      padding: 2rem !important;
-      border-radius: 16px !important;
-      margin: 2rem auto 0 !important;
-      border: 1px solid rgba(38, 154, 144, 0.1) !important;
-      text-align: center !important;
-      max-width: 500px !important;
-      width: 100% !important;
+    .contact-info p {
+      font-size: 1rem;
+      margin: 0;
     }
 
-    #successModal .contact-info p {
-      font-size: 1.1rem !important;
-      margin: 0 auto !important;
-      text-align: center !important;
+    .contact-info a {
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--primary-color);
+      font-size: 1.1rem;
     }
 
-    #successModal .contact-info a {
-      font-weight: 700 !important;
-      text-decoration: none !important;
-      color: #269A90 !important;
-      font-size: 1.2rem !important;
-      position: relative !important;
-      display: inline-block !important;
+    .modal-footer {
+      padding: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      background: #f8f9fa;
+      border-radius: 0 0 24px 24px;
+      flex-shrink: 0;
     }
 
-    #successModal .modal-footer {
-      padding: 3rem !important;
-      display: flex !important;
-      gap: 1.5rem !important;
-      justify-content: center !important;
-      align-items: center !important;
-      background: #f8f9fa !important;
-      border-radius: 0 0 24px 24px !important;
-      text-align: center !important;
-      width: 100% !important;
-    }
-
-    #successModal .modal-footer button {
-      padding: 1rem 2.5rem !important;
-      border: none !important;
-      border-radius: 12px !important;
-      font-weight: 600 !important;
-      cursor: pointer !important;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-      font-family: 'Kulim Park', Arial, sans-serif !important;
-      font-size: 1.1rem !important;
-      min-width: 140px !important;
-      text-align: center !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-    }
-
-    #successModal .modal-footer .btn-primary {
-      background: linear-gradient(135deg, #269A90 0%, #32978b 100%) !important;
-      color: white !important;
-      box-shadow: 0 4px 15px rgba(38, 154, 144, 0.3) !important;
-    }
-
-    .btn-secondary {
-      background: transparent !important;
-      color: #269A90 !important;
-      border: 2px solid #269A90 !important;
-      box-shadow: 0 2px 10px rgba(38, 154, 144, 0.1) !important;
-    }
-
-    .btn-secondary:hover {
-      background: #269A90 !important;
-      color: white !important;
-      box-shadow: 0 4px 15px rgba(38, 154, 144, 0.3) !important;
-      transform: translateY(-1px) !important;
-    }
-
-    /* Error Message Styles */
+    /* === ERROR MESSAGES === */
     .error-message {
       position: fixed;
       top: 20px;
       right: 20px;
-      background: #f8d7da;
-      color: #721c24;
-      border: 1px solid #f5c6cb;
+      background: var(--error-bg);
+      color: var(--error-text);
+      border: 1px solid var(--error-border);
       padding: 1rem 1.5rem;
-      border-radius: 8px;
+      border-radius: var(--border-radius);
       max-width: 400px;
       z-index: 1000000;
       font-weight: bold;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       cursor: pointer;
     }
 
-    /* Modal Animations */
+    /* === ANIMATIONS === */
     @keyframes modalFadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
 
     @keyframes modalSlideIn {
-      from { 
+      from {
         opacity: 0;
         transform: translateY(-30px) scale(0.95);
       }
-      to { 
+      to {
         opacity: 1;
         transform: translateY(0) scale(1);
       }
     }
 
     @keyframes stroke {
-      100% {
-        stroke-dashoffset: 0;
-      }
+      100% { stroke-dashoffset: 0; }
     }
 
-    @keyframes scale {
-      0%, 100% {
-        transform: none;
+    /* === RESPONSIVE DESIGN === */
+    @media (max-width: 860px) {
+      .checkbox-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
-      50% {
-        transform: scale3d(1.1, 1.1, 1);
-      }
-    }
-
-    @keyframes fill {
-      100% {
-        box-shadow: inset 0px 0px 0px 30px white;
-      }
-    }
-
-    /* Responsive */
-    @media (max-width: 860px) { 
-      .checkbox-grid { 
-        grid-template-columns: repeat(2,1fr); 
-      } 
     }
 
     @media (max-width: 768px) {
-      .form-row { 
-        grid-template-columns: 1fr; 
+      .booking-section {
+        padding: 1rem;
       }
-      .booking-card { 
-        padding: 1.5rem 1.25rem; 
-        border-radius: 12px; 
+
+      .booking-card {
+        padding: 1.5rem 1.25rem;
+        border-radius: 12px;
       }
-      
-      #successModal .modal-content {
-        margin: 1rem !important;
-        width: calc(100% - 2rem) !important;
-        border-radius: 20px !important;
+
+      .form-row {
+        grid-template-columns: 1fr;
       }
-      
-      #successModal .modal-footer {
-        flex-direction: column !important;
-        padding: 2rem !important;
+
+      .form-group-inline {
+        flex-direction: column;
+        align-items: flex-start;
       }
-      
-      #successModal .modal-footer button {
-        width: 100% !important;
-        max-width: 300px !important;
+
+      .inline-label {
+        min-width: auto;
+        margin-bottom: 0.5rem;
+      }
+
+      .modal-content {
+        margin: 1rem;
+        width: calc(100% - 2rem);
+        border-radius: 20px;
+      }
+
+      .modal-footer {
+        flex-direction: column;
+        padding: 2rem;
+      }
+
+      .modal-footer button {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .checkbox-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* === ACCESSIBILITY === */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* === PRINT STYLES === */
+    @media print {
+      .booking-section {
+        min-height: auto;
+        padding: 1rem;
+      }
+
+      .booking-card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+      }
+
+      #successModal {
+        display: none !important;
       }
     }
   </style>
@@ -524,19 +555,17 @@
 <body>
   <section class="booking-section">
     <div class="booking-card">
-      <!-- STEP 1: Date & Time -->
+      <!-- STEP 1: Date & Time Selection -->
       <div class="booking-step active" id="step1">
         <h2>Select Date & Time</h2>
-
         <div class="form-row">
           <div class="form-group">
             <label for="appointmentDate">Choose a date</label>
-            <input type="date" id="appointmentDate" required />
+            <input type="date" id="appointmentDate" required aria-describedby="date-help">
           </div>
-
           <div class="form-group">
             <label for="appointmentTime">Choose a time</label>
-            <select id="appointmentTime" required>
+            <select id="appointmentTime" required aria-describedby="time-help">
               <option value="">-- Select a time --</option>
               <option value="09:00">9:00 AM</option>
               <option value="10:00">10:00 AM</option>
@@ -548,36 +577,34 @@
             </select>
           </div>
         </div>
-
-        <button class="btn-primary wide" id="goNext" onclick="handleNextClick()">Next</button>
+        <button class="btn-primary wide" id="nextButton">Next</button>
       </div>
 
       <!-- STEP 2: Patient Information -->
       <div class="booking-step" id="step2">
-        <h2>Durian-Quiamco Patient Information</h2>
+        <h2>Patient Information</h2>
+        <div class="summary" id="appointmentSummary"></div>
 
-        <div class="summary" id="apptSummary"></div>
-
-        <form id="bookingForm" method="POST">
-          <input type="hidden" name="appointment_date" id="hiddenAppointmentDate" />
-          <input type="hidden" name="appointment_time" id="hiddenAppointmentTime" />
+        <form id="bookingForm" novalidate>
+          <input type="hidden" name="appointment_date" id="hiddenDate">
+          <input type="hidden" name="appointment_time" id="hiddenTime">
 
           <!-- Personal Information -->
           <div class="section-subheading">Personal Information</div>
 
           <div class="form-group">
-            <label for="name">Full Name*</label>
-            <input type="text" id="name" name="name" autocomplete="off" required />
+            <label for="fullName">Full Name*</label>
+            <input type="text" id="fullName" name="name" required autocomplete="name">
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label for="birthdate">Birthdate*</label>
-              <input type="date" id="birthdate" name="birthdate" required />
+              <input type="date" id="birthdate" name="birthdate" required autocomplete="bday">
             </div>
             <div class="form-group">
               <label for="age">Age*</label>
-              <input type="number" id="age" name="age" min="0" required />
+              <input type="number" id="age" name="age" min="0" max="120" required>
             </div>
           </div>
 
@@ -586,46 +613,46 @@
               <label for="sex">Sex*</label>
               <select id="sex" name="sex" required>
                 <option value="">Select</option>
-                <option>Male</option>
-                <option>Female</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
               </select>
             </div>
             <div class="form-group">
               <label for="religion">Religion</label>
-              <input type="text" id="religion" name="religion" />
+              <input type="text" id="religion" name="religion" autocomplete="off">
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label for="nationality">Nationality</label>
-              <input type="text" id="nationality" name="nationality" />
+              <input type="text" id="nationality" name="nationality" autocomplete="country">
             </div>
             <div class="form-group">
               <label for="occupation">Occupation</label>
-              <input type="text" id="occupation" name="occupation" />
+              <input type="text" id="occupation" name="occupation" autocomplete="organization-title">
             </div>
           </div>
 
           <div class="form-group">
             <label for="homeAddress">Home Address*</label>
-            <input type="text" id="homeAddress" name="homeAddress" required />
+            <input type="text" id="homeAddress" name="homeAddress" required autocomplete="street-address">
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label for="mobile">Mobile No.*</label>
-              <input type="tel" id="mobile" name="mobile" required />
+              <input type="tel" id="mobile" name="mobile" required autocomplete="tel">
             </div>
             <div class="form-group">
               <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" autocomplete="off"/>
+              <input type="email" id="email" name="email" autocomplete="email">
             </div>
           </div>
 
           <div class="form-group">
             <label for="referrer">Referred By</label>
-            <input type="text" id="referrer" name="referrer" />
+            <input type="text" id="referrer" name="referrer" autocomplete="off">
           </div>
 
           <!-- Dental History -->
@@ -634,17 +661,17 @@
           <div class="form-row">
             <div class="form-group">
               <label for="prevDentist">Previous Dentist</label>
-              <input type="text" id="prevDentist" name="prevDentist" />
+              <input type="text" id="prevDentist" name="prevDentist" autocomplete="off">
             </div>
             <div class="form-group">
               <label for="lastVisit">Last Dental Visit</label>
-              <input type="date" id="lastVisit" name="lastVisit" />
+              <input type="date" id="lastVisit" name="lastVisit">
             </div>
           </div>
 
           <div class="form-group">
             <label for="reason">Reason for Consultation</label>
-            <textarea id="reason" name="reason" rows="3"></textarea>
+            <textarea id="reason" name="reason" rows="3" placeholder="Please describe your dental concerns or reasons for this visit"></textarea>
           </div>
 
           <!-- Medical History -->
@@ -653,17 +680,17 @@
           <div class="form-row">
             <div class="form-group">
               <label for="physician">Physician Name</label>
-              <input type="text" id="physician" name="physician" />
+              <input type="text" id="physician" name="physician" autocomplete="off">
             </div>
             <div class="form-group">
               <label for="physicianOffice">Office / Contact</label>
-              <input type="text" id="physicianOffice" name="physicianOffice" />
+              <input type="text" id="physicianOffice" name="physicianOffice" autocomplete="off">
             </div>
           </div>
 
           <div class="form-group">
             <label for="medications">Current Medications</label>
-            <textarea id="medications" name="medications" rows="2"></textarea>
+            <textarea id="medications" name="medications" rows="2" placeholder="List any medications you are currently taking"></textarea>
           </div>
 
           <div class="form-row">
@@ -671,27 +698,27 @@
               <label for="bloodType">Blood Type</label>
               <select id="bloodType" name="bloodType">
                 <option value="">Select</option>
-                <option>A+</option>
-                <option>A-</option>
-                <option>B+</option>
-                <option>B-</option>
-                <option>AB+</option>
-                <option>AB-</option>
-                <option>O+</option>
-                <option>O-</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
               </select>
             </div>
             <div class="form-group">
               <label for="bloodPressure">Blood Pressure</label>
-              <input type="text" id="bloodPressure" name="bloodPressure" placeholder="e.g., 120/80" />
+              <input type="text" id="bloodPressure" name="bloodPressure" placeholder="e.g., 120/80">
             </div>
           </div>
 
           <!-- Medical Conditions -->
           <div class="form-group-inline">
             <span class="inline-label">Are you under medical treatment?</span>
-            <label><input type="radio" name="medicalTreatment" value="Yes" id="gHealthN"/> Yes</label>
-            <label><input type="radio" name="medicalTreatment" value="No" id="gHealthY"/> No</label>
+            <label><input type="radio" name="medicalTreatment" value="Yes" id="medTreatmentYes"> Yes</label>
+            <label><input type="radio" name="medicalTreatment" value="No" id="medTreatmentNo"> No</label>
           </div>
 
           <div class="form-group">
@@ -701,8 +728,8 @@
 
           <div class="form-group-inline">
             <span class="inline-label">Have you had surgery?</span>
-            <label><input type="radio" name="surgery" value="Yes" id="hoSurY"/> Yes</label>
-            <label><input type="radio" name="surgery" value="No" id="hoSurN"/> No</label>
+            <label><input type="radio" name="surgery" value="Yes" id="surgeryYes"> Yes</label>
+            <label><input type="radio" name="surgery" value="No" id="surgeryNo"> No</label>
           </div>
 
           <div class="form-group">
@@ -713,33 +740,33 @@
           <!-- Women's Health -->
           <div class="form-group-inline">
             <span class="inline-label">Pregnant?</span>
-            <label><input type="checkbox" name="pregnant" value="Yes" id="pregy"/> Yes</label>
+            <label><input type="checkbox" name="pregnant" value="Yes" id="pregnant"> Yes</label>
           </div>
 
           <div class="form-group-inline">
             <span class="inline-label">Nursing?</span>
-            <label><input type="checkbox" name="nursing" value="Yes" id="nurs"/> Yes</label>
+            <label><input type="checkbox" name="nursing" value="Yes" id="nursing"> Yes</label>
           </div>
 
           <div class="form-group-inline">
             <span class="inline-label">Using birth control pills?</span>
-            <label><input type="checkbox" name="birthControl" value="Yes" id="bcpills"/> Yes</label>
+            <label><input type="checkbox" name="birthControl" value="Yes" id="birthControl"> Yes</label>
           </div>
 
           <!-- Allergies -->
           <div class="section-subheading">Allergies</div>
           <div class="checkbox-grid">
-            <label><input type="checkbox" id="locAnesth" name="allergy[]" value="Local Anesthetic"/> Local Anesthetic</label>
-            <label><input type="checkbox" id="aspirin" name="allergy[]" value="Aspirin"/> Aspirin</label>
-            <label><input type="checkbox" id="penicillin" name="allergy[]" value="Penicillin"/> Penicillin</label>
-            <label><input type="checkbox" id="latex" name="allergy[]" value="Latex"/> Latex</label>
-            <label><input type="checkbox" id="sulfa" name="allergy[]" value="Sulfa drugs"/> Sulfa drugs</label>
-            <label><input type="checkbox" id="otherAllergiesCB" name="allergy[]" value="Other"/> Other</label>
+            <label><input type="checkbox" id="localAnesthetic" name="allergy[]" value="Local Anesthetic"> Local Anesthetic</label>
+            <label><input type="checkbox" id="aspirin" name="allergy[]" value="Aspirin"> Aspirin</label>
+            <label><input type="checkbox" id="penicillin" name="allergy[]" value="Penicillin"> Penicillin</label>
+            <label><input type="checkbox" id="latex" name="allergy[]" value="Latex"> Latex</label>
+            <label><input type="checkbox" id="sulfa" name="allergy[]" value="Sulfa drugs"> Sulfa drugs</label>
+            <label><input type="checkbox" id="otherAllergy" name="allergy[]" value="Other"> Other</label>
           </div>
 
           <div class="form-group">
             <label for="otherAllergies">If other, please specify:</label>
-            <input type="text" id="otherAllergies" name="otherAllergies" disabled />
+            <input type="text" id="otherAllergies" name="otherAllergies" disabled>
           </div>
 
           <button type="submit" class="btn-primary wide">Submit Appointment</button>
@@ -750,228 +777,318 @@
   </section>
 
   <!-- SUCCESS MODAL -->
-  <div id="successModal" class="modal-overlay" style="display:none">
+  <div id="successModal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal-content">
-        <div class="modal-header">
-            <div class="success-icon">
-                <div class="checkmark">
-                    <div class="checkmark-circle"></div>
-                    <div class="checkmark-stem"></div>
-                    <div class="checkmark-kick"></div>
-                </div>
-            </div>
-            <h2>Registration Successful!</h2>
+      <div class="modal-header">
+        <div class="success-icon">
+          <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" aria-hidden="true">
+            <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+            <path class="checkmark-check" fill="none" d="m14.1 27.2l7.1 7.2 16.7-16.8"/>
+          </svg>
+        </div>
+        <h2 id="modal-title">Registration Successful!</h2>
+      </div>
+      
+      <div class="modal-body">
+        <p class="main-message">Thank you for choosing <strong>Durian-Quiamco Dental Clinic</strong>!</p>
+        <p class="sub-message">Your appointment registration has been successfully submitted.</p>
+        
+        <div class="next-steps">
+          <h4>What happens next?</h4>
+          <ul>
+            <li>Our team will contact you within 24 hours to confirm your appointment</li>
+            <li>Please bring a valid ID and any relevant medical records</li>
+            <li>Arrive 15 minutes early for your appointment</li>
+          </ul>
         </div>
         
-        <div class="modal-body">
-            <p class="main-message">Thank you for choosing <strong>Durian-Quiamco Dental Clinic</strong>!</p>
-            <p class="sub-message">Your appointment registration has been successfully submitted.</p>
-            
-            <div class="next-steps">
-                <h4>What happens next?</h4>
-                <ul>
-                    <li>Our team will contact you within 24 hours to confirm your appointment</li>
-                    <li>Please bring a valid ID and any relevant medical records</li>
-                    <li>Arrive 15 minutes early for your appointment</li>
-                </ul>
-            </div>
-            
-            <div class="contact-info">
-                <p><strong>Questions?</strong> Call us at <a href="tel:09216467594">09216467594</a></p>
-            </div>
+        <div class="contact-info">
+          <p><strong>Questions?</strong> Call us at <a href="tel:09216467594">09216467594</a></p>
         </div>
-        
-        <div class="modal-footer">
-            <button class="btn-primary" onclick="closeSuccessModal()">Continue</button>
-            <button class="btn-secondary" onclick="goHome()">Back to Home</button>
-        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button class="btn-primary" id="continueBtn">Continue</button>
+        <button class="btn-secondary" id="homeBtn">Back to Home</button>
+      </div>
     </div>
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // DOM Elements
-      const elements = {
-        nextBtn: document.getElementById('goNext'),
-        step1: document.getElementById('step1'),
-        step2: document.getElementById('step2'),
-        dateInput: document.getElementById('appointmentDate'),
-        timeSelect: document.getElementById('appointmentTime'),
-        summary: document.getElementById('apptSummary'),
-        hiddenDate: document.getElementById('hiddenAppointmentDate'),
-        hiddenTime: document.getElementById('hiddenAppointmentTime'),
-        form: document.getElementById('bookingForm')
-      };
+    // Application state
+    const BookingApp = {
+      elements: {},
+      isSubmitting: false,
 
-      // Initialize form
-      initializeForm();
-      setupEventListeners();
+      // Initialize the application
+      init() {
+        this.cacheElements();
+        this.bindEvents();
+        this.setupForm();
+      },
 
-      /**
-       * Initialize form with default settings
-       */
-      function initializeForm() {
+      // Cache DOM elements for better performance
+      cacheElements() {
+        this.elements = {
+          nextBtn: document.getElementById('nextButton'),
+          step1: document.getElementById('step1'),
+          step2: document.getElementById('step2'),
+          dateInput: document.getElementById('appointmentDate'),
+          timeSelect: document.getElementById('appointmentTime'),
+          summary: document.getElementById('appointmentSummary'),
+          hiddenDate: document.getElementById('hiddenDate'),
+          hiddenTime: document.getElementById('hiddenTime'),
+          form: document.getElementById('bookingForm'),
+          modal: document.getElementById('successModal'),
+          continueBtn: document.getElementById('continueBtn'),
+          homeBtn: document.getElementById('homeBtn'),
+          birthdateInput: document.getElementById('birthdate'),
+          ageInput: document.getElementById('age')
+        };
+      },
+
+      // Bind all event handlers
+      bindEvents() {
+        // Step navigation
+        this.elements.nextBtn?.addEventListener('click', (e) => this.handleNextStep(e));
+        
+        // Form submission
+        this.elements.form?.addEventListener('submit', (e) => this.handleFormSubmit(e));
+        
+        // Modal controls
+        this.elements.continueBtn?.addEventListener('click', () => this.closeModal());
+        this.elements.homeBtn?.addEventListener('click', () => this.goHome());
+        
+        // Auto-calculate age from birthdate
+        this.elements.birthdateInput?.addEventListener('change', () => this.calculateAge());
+        
+        // Medical history toggles
+        this.setupMedicalToggles();
+        
+        // Allergies toggle
+        this.setupAllergiesToggle();
+        
+        // Modal keyboard/click handlers
+        this.setupModalHandlers();
+      },
+
+      // Setup form defaults and validation
+      setupForm() {
         const today = new Date();
         const minDate = today.toISOString().split('T')[0];
-        elements.dateInput.min = minDate;
-      }
-
-      /**
-       * Set up all event listeners
-       */
-      function setupEventListeners() {
-        console.log('Setting up event listeners...');
-        console.log('Next button element:', elements.nextBtn);
-        
-        if (elements.nextBtn) {
-          elements.nextBtn.addEventListener('click', handleNextStep);
-          console.log('Next button event listener added');
-        } else {
-          console.error('Next button not found!');
+        if (this.elements.dateInput) {
+          this.elements.dateInput.min = minDate;
         }
-        
-        if (elements.form) {
-          elements.form.addEventListener('submit', handleFormSubmit);
-          console.log('Form submit event listener added');
-        } else {
-          console.error('Form not found!');
-        }
-        
-        setupMedicalHistoryToggles();
-        setupAllergiesToggle();
-        setupModalControls();
-      }
+      },
 
-      /**
-       * Handle step navigation
-       */
-      function handleNextStep(e) {
+      // Handle step navigation
+      handleNextStep(e) {
         e.preventDefault();
-        console.log('Next button clicked');
         
-        const dateVal = elements.dateInput.value;
-        const timeVal = elements.timeSelect.value;
+        const date = this.elements.dateInput?.value;
+        const time = this.elements.timeSelect?.value;
 
-        console.log('Date:', dateVal, 'Time:', timeVal);
-
-        if (!dateVal || !timeVal) {
-          alert('Please select both a date and a time.');
+        if (!date || !time) {
+          this.showError('Please select both a date and a time.');
           return;
         }
 
-        elements.hiddenDate.value = dateVal;
-        elements.hiddenTime.value = timeVal;
+        // Store values
+        if (this.elements.hiddenDate) this.elements.hiddenDate.value = date;
+        if (this.elements.hiddenTime) this.elements.hiddenTime.value = time;
 
-        const prettyTime = formatTime(timeVal);
-        const prettyDate = formatDate(dateVal);
-        elements.summary.textContent = `Appointment: ${prettyDate} at ${prettyTime}`;
+        // Update summary
+        const formattedDate = this.formatDate(date);
+        const formattedTime = this.formatTime(time);
+        if (this.elements.summary) {
+          this.elements.summary.textContent = `Appointment: ${formattedDate} at ${formattedTime}`;
+        }
 
-        elements.step1.classList.remove('active');
-        elements.step2.classList.add('active');
-      }
+        // Navigate to step 2
+        this.elements.step1?.classList.remove('active');
+        this.elements.step2?.classList.add('active');
+      },
 
-      /**
-       * Handle form submission
-       */
-      function handleFormSubmit(e) {
+      // Handle form submission
+      async handleFormSubmit(e) {
         e.preventDefault();
-        submitDataToDB();
-      }
+        
+        if (this.isSubmitting) return;
+        
+        if (!this.validateForm()) return;
+        
+        this.isSubmitting = true;
+        const submitBtn = this.elements.form?.querySelector('button[type="submit"]');
+        this.setButtonLoading(submitBtn, true);
 
-      /**
-       * Set up medical history radio button toggles
-       */
-      function setupMedicalHistoryToggles() {
-        const medicalToggles = [
-          { yes: 'gHealthN', no: 'gHealthY', target: 'medCondition' },
-          { yes: 'hoSurY', no: 'hoSurN', target: 'surgeryDetails' }
+        try {
+          const formData = this.collectFormData();
+          const response = await fetch('js/personal_info_to_db.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData).toString()
+          });
+
+          const responseText = await response.text();
+          
+          if (response.ok && (responseText.includes('Personal details saved') || responseText.includes('saved'))) {
+            this.showModal();
+          } else {
+            this.showError(`Submission failed: ${responseText}`);
+          }
+        } catch (error) {
+          this.showError(`Network error: ${error.message}`);
+        } finally {
+          this.isSubmitting = false;
+          this.setButtonLoading(submitBtn, false);
+        }
+      },
+
+      // Validate form before submission
+      validateForm() {
+        const requiredFields = [
+          'fullName', 'birthdate', 'age', 'sex', 'homeAddress', 'mobile'
         ];
 
-        medicalToggles.forEach(toggle => {
+        for (const fieldId of requiredFields) {
+          const field = document.getElementById(fieldId);
+          if (!field?.value.trim()) {
+            field?.focus();
+            this.showError(`Please fill in the ${field?.labels[0]?.textContent || fieldId} field.`);
+            return false;
+          }
+        }
+
+        // Validate email format if provided
+        const email = document.getElementById('email');
+        if (email?.value && !this.isValidEmail(email.value)) {
+          email.focus();
+          this.showError('Please enter a valid email address.');
+          return false;
+        }
+
+        // Validate age
+        const age = document.getElementById('age');
+        if (age?.value && (parseInt(age.value) < 0 || parseInt(age.value) > 120)) {
+          age.focus();
+          this.showError('Please enter a valid age between 0 and 120.');
+          return false;
+        }
+
+        return true;
+      },
+
+      // Email validation helper
+      isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      },
+
+      // Calculate age from birthdate
+      calculateAge() {
+        const birthdateInput = this.elements.birthdateInput;
+        const ageInput = this.elements.ageInput;
+        
+        if (!birthdateInput?.value || !ageInput) return;
+
+        const birthDate = new Date(birthdateInput.value);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+        }
+        
+        if (age >= 0 && age <= 120) {
+          ageInput.value = age;
+        }
+      },
+
+      // Setup medical history toggles
+      setupMedicalToggles() {
+        const toggles = [
+          { yes: 'medTreatmentYes', no: 'medTreatmentNo', target: 'medCondition' },
+          { yes: 'surgeryYes', no: 'surgeryNo', target: 'surgeryDetails' }
+        ];
+
+        toggles.forEach(toggle => {
           const yesElement = document.getElementById(toggle.yes);
           const noElement = document.getElementById(toggle.no);
           const targetElement = document.getElementById(toggle.target);
 
-          if (yesElement && targetElement) {
-            yesElement.addEventListener('change', () => {
+          yesElement?.addEventListener('change', () => {
+            if (yesElement.checked && targetElement) {
               targetElement.disabled = false;
-            });
-          }
-
-          if (noElement && targetElement) {
-            noElement.addEventListener('change', () => {
-              targetElement.disabled = true;
-              targetElement.value = '';
-            });
-          }
-        });
-      }
-
-      /**
-       * Set up allergies "other" option toggle
-       */
-      function setupAllergiesToggle() {
-        const otherAllergiesCB = document.getElementById('otherAllergiesCB');
-        const otherAllergiesInput = document.getElementById('otherAllergies');
-
-        if (otherAllergiesCB && otherAllergiesInput) {
-          otherAllergiesCB.addEventListener('change', () => {
-            otherAllergiesInput.disabled = !otherAllergiesCB.checked;
-            if (!otherAllergiesCB.checked) {
-              otherAllergiesInput.value = '';
             }
           });
-        }
-      }
 
-      /**
-       * Set up modal controls
-       */
-      function setupModalControls() {
-        document.addEventListener('click', (e) => {
-          const modal = document.getElementById('successModal');
-          if (modal && e.target === modal) {
-            closeSuccessModal();
+          noElement?.addEventListener('change', () => {
+            if (noElement.checked && targetElement) {
+              targetElement.disabled = true;
+              targetElement.value = '';
+            }
+          });
+        });
+      },
+
+      // Setup allergies other option toggle
+      setupAllergiesToggle() {
+        const otherCheckbox = document.getElementById('otherAllergy');
+        const otherInput = document.getElementById('otherAllergies');
+
+        otherCheckbox?.addEventListener('change', () => {
+          if (otherInput) {
+            otherInput.disabled = !otherCheckbox.checked;
+            if (!otherCheckbox.checked) {
+              otherInput.value = '';
+            }
           }
         });
+      },
 
+      // Setup modal event handlers
+      setupModalHandlers() {
+        // Close on escape key
         document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape') {
-            closeSuccessModal();
+          if (e.key === 'Escape' && this.elements.modal?.classList.contains('show')) {
+            this.closeModal();
           }
         });
-      }
 
-      /**
-       * Collect and validate form data
-       */
-      function collectFormData() {
+        // Close on backdrop click
+        this.elements.modal?.addEventListener('click', (e) => {
+          if (e.target === this.elements.modal) {
+            this.closeModal();
+          }
+        });
+      },
+
+      // Collect all form data
+      collectFormData() {
         const getValue = (id) => {
           const element = document.getElementById(id);
-          return element ? element.value.trim() : '';
+          return element?.value?.trim() || '';
         };
 
-        const getOptionalValue = (value) => {
-          return value || 'N/A';
-        };
+        const getOptionalValue = (value) => value || 'N/A';
 
         const getRadioValue = (name) => {
           const element = document.querySelector(`input[name="${name}"]:checked`);
-          return element ? element.value : 'No';
+          return element?.value || 'No';
         };
 
         const getCheckboxValue = (id) => {
           const element = document.getElementById(id);
-          return element && element.checked ? 'Yes' : 'No';
+          return element?.checked ? 'Yes' : 'No';
         };
 
         return {
           // Appointment details
-          appointment_date: elements.hiddenDate.value,
-          appointment_time: elements.hiddenTime.value,
+          appointment_date: this.elements.hiddenDate?.value || '',
+          appointment_time: this.elements.hiddenTime?.value || '',
 
           // Required fields
-          name: getValue('name'),
+          name: getValue('fullName'),
           birthdate: getValue('birthdate'),
           age: getValue('age'),
           sex: getValue('sex'),
@@ -994,82 +1111,46 @@
           bloodPressure: getOptionalValue(getValue('bloodPressure')),
 
           // Medical conditions
-          undr_trtmnt: document.getElementById('gHealthN')?.checked ? 
+          undr_trtmnt: document.getElementById('medTreatmentYes')?.checked ? 
             getOptionalValue(getValue('medCondition')) : 'N/A',
-          surgery: document.getElementById('hoSurY')?.checked ? 
+          surgery: document.getElementById('surgeryYes')?.checked ? 
             getOptionalValue(getValue('surgeryDetails')) : 'N/A',
 
           // Women's health
-          pregy: getCheckboxValue('pregy'),
-          nurs: getCheckboxValue('nurs'),
-          bcpills: getCheckboxValue('bcpills'),
+          pregy: getCheckboxValue('pregnant'),
+          nurs: getCheckboxValue('nursing'),
+          bcpills: getCheckboxValue('birthControl'),
 
           // Allergies
-          allergy: collectAllergies()
+          allergy: this.collectAllergies()
         };
-      }
+      },
 
-      /**
-       * Collect allergies information
-       */
-      function collectAllergies() {
-        const allergyIds = ['locAnesth', 'aspirin', 'penicillin', 'latex', 'sulfa'];
+      // Collect allergies information
+      collectAllergies() {
+        const allergyIds = ['localAnesthetic', 'aspirin', 'penicillin', 'latex', 'sulfa'];
         const allergies = [];
 
         allergyIds.forEach(id => {
           const element = document.getElementById(id);
-          if (element && element.checked) {
+          if (element?.checked) {
             allergies.push(element.value);
           }
         });
 
         // Check for other allergies
-        const otherAllergiesCB = document.getElementById('otherAllergiesCB');
-        const otherAllergiesValue = document.getElementById('otherAllergies');
+        const otherCheckbox = document.getElementById('otherAllergy');
+        const otherInput = document.getElementById('otherAllergies');
         
-        if (otherAllergiesCB?.checked && otherAllergiesValue?.value.trim()) {
-          allergies.push(otherAllergiesValue.value.trim());
+        if (otherCheckbox?.checked && otherInput?.value.trim()) {
+          allergies.push(otherInput.value.trim());
         }
 
         return allergies.length > 0 ? allergies.join(', ') : 'None';
-      }
+      },
 
-      /**
-       * Submit form data to database
-       */
-      async function submitDataToDB() {
-        const formData = collectFormData();
-        const submitButton = document.querySelector('button[type="submit"]');
-        
-        // Show loading state
-        setButtonLoading(submitButton, true);
-
-        try {
-          const response = await fetch('js/personal_info_to_db.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(formData).toString()
-          });
-
-          const responseText = await response.text();
-          
-          if (response.ok && (responseText.includes('Personal details saved') || responseText.includes('saved'))) {
-            showSuccessModal();
-          } else {
-            showErrorMessage(`Submission failed: ${responseText}`);
-          }
-
-        } catch (error) {
-          showErrorMessage(`Network error: ${error.message}`);
-        } finally {
-          setButtonLoading(submitButton, false);
-        }
-      }
-
-      /**
-       * Set button loading state
-       */
-      function setButtonLoading(button, isLoading) {
+      // Set button loading state
+      setButtonLoading(button, isLoading) {
         if (!button) return;
 
         if (isLoading) {
@@ -1082,113 +1163,107 @@
           button.textContent = button.dataset.originalText || 'Submit Appointment';
           button.style.opacity = '1';
         }
-      }
+      },
 
-      /**
-       * Format time for display
-       */
-      function formatTime(timeString) {
+      // Format time for display
+      formatTime(timeString) {
         const [hours, minutes] = timeString.split(':').map(Number);
         const ampm = hours >= 12 ? 'PM' : 'AM';
         const displayHours = ((hours + 11) % 12) + 1;
         return `${displayHours}:${minutes.toString().padStart(2, '0')} ${ampm}`;
-      }
+      },
 
-      /**
-       * Format date for display
-       */
-      function formatDate(dateString) {
+      // Format date for display
+      formatDate(dateString) {
         const date = new Date(dateString);
-        return date.toLocaleDateString(undefined, { 
+        return date.toLocaleDateString('en-US', { 
           year: 'numeric', 
           month: 'long', 
           day: 'numeric' 
         });
-      }
+      },
 
-      /**
-       * Show success modal
-       */
-      function showSuccessModal() {
-        const modal = document.getElementById('successModal');
-        if (!modal) return;
+      // Show success modal
+      showModal() {
+        if (!this.elements.modal) return;
 
-        modal.style.cssText = `
-          position: fixed !important;
-          top: 0 !important;
-          left: 0 !important;
-          width: 100vw !important;
-          height: 100vh !important;
-          display: flex !important;
-          justify-content: center !important;
-          align-items: center !important;
-          z-index: 999999 !important;
-          background: linear-gradient(135deg, rgba(38, 154, 144, 0.95) 0%, rgba(50, 151, 139, 0.95) 100%) !important;
-        `;
-
-        modal.classList.add('show');
+        this.elements.modal.classList.add('show');
         document.body.style.overflow = 'hidden';
 
+        // Focus the continue button for accessibility
         setTimeout(() => {
-          const continueBtn = modal.querySelector('.btn-primary');
-          if (continueBtn) continueBtn.focus();
+          this.elements.continueBtn?.focus();
         }, 500);
-      }
+      },
 
-      /**
-       * Close success modal
-       */
-      function closeSuccessModal() {
-        const modal = document.getElementById('successModal');
-        if (!modal) return;
+      // Close success modal
+      closeModal() {
+        if (!this.elements.modal) return;
 
-        modal.style.display = 'none';
-        modal.classList.remove('show');
+        this.elements.modal.classList.remove('show');
         document.body.style.overflow = '';
 
-        // Reset form
+        // Reset form after a short delay
         setTimeout(() => {
-          elements.form.reset();
-          
-          elements.step2.classList.remove('active');
-          elements.step1.classList.add('active');
-          
-          elements.summary.textContent = '';
-        }, 100);
-      }
+          this.resetForm();
+        }, 300);
+      },
 
-      /**
-       * Navigate to home page
-       */
-      function goHome() {
-        // In a real implementation, this would redirect to your actual home page
+      // Reset form to initial state
+      resetForm() {
+        this.elements.form?.reset();
+        this.elements.step2?.classList.remove('active');
+        this.elements.step1?.classList.add('active');
+        if (this.elements.summary) {
+          this.elements.summary.textContent = '';
+        }
+
+        // Reset disabled states
+        const conditionalFields = ['medCondition', 'surgeryDetails', 'otherAllergies'];
+        conditionalFields.forEach(id => {
+          const field = document.getElementById(id);
+          if (field) {
+            field.disabled = true;
+            field.value = '';
+          }
+        });
+      },
+
+      // Navigate to home page
+      goHome() {
         window.location.href = 'index.html';
-      }
+      },
 
-      /**
-       * Show error message
-       */
-      function showErrorMessage(message) {
+      // Show error message
+      showError(message) {
+        // Remove existing error messages
+        document.querySelectorAll('.error-message').forEach(el => el.remove());
+
         const errorDiv = document.createElement('div');
         errorDiv.className = 'error-message';
         errorDiv.textContent = message;
+        errorDiv.setAttribute('role', 'alert');
 
         document.body.appendChild(errorDiv);
 
         // Auto-remove and click to dismiss
-        const removeError = () => errorDiv.remove();
+        const removeError = () => {
+          if (errorDiv.parentNode) {
+            errorDiv.remove();
+          }
+        };
+        
         errorDiv.addEventListener('click', removeError);
         setTimeout(removeError, 8000);
       }
+    };
 
-      // Make functions globally accessible for HTML onclick handlers
-      window.closeSuccessModal = closeSuccessModal;
-      window.goHome = goHome;
-      window.handleNextClick = function() {
-        console.log('Global handleNextClick called');
-        handleNextStep({ preventDefault: () => {} });
-      };
-    });
+    // Initialize application when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => BookingApp.init());
+    } else {
+      BookingApp.init();
+    }
   </script>
 </body>
 </html>
