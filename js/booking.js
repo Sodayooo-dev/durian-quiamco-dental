@@ -1,220 +1,449 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const nextBtn = document.getElementById('goNext');
-  const step1 = document.getElementById('step1');
-  const step2 = document.getElementById('step2');
-  const dateInput = document.getElementById('appointmentDate');
-  const timeSelect = document.getElementById('appointmentTime');
-  const summary = document.getElementById('apptSummary');
-  const hiddenDate = document.getElementById('hiddenAppointmentDate');
-  const hiddenTime = document.getElementById('hiddenAppointmentTime');
-  const form = document.getElementById('bookingForm');
-  let allergies = "";
+    // Application state
+    const BookingApp = {
+      elements: {},
+      isSubmitting: false,
 
-  // Prevent selecting past dates
-  const today = new Date();
-  const yyyy = today.getFullYear();
-  const mm = String(today.getMonth() + 1).padStart(2, '0');
-  const dd = String(today.getDate()).padStart(2, '0');
-  dateInput.min = `${yyyy}-${mm}-${dd}`;
+      // Initialize the application
+      init() {
+        this.cacheElements();
+        this.bindEvents();
+        this.setupForm();
+      },
 
-  //FOR ALLERGIES CHECKING
-  function checkAllergies() {
-    const localAnesthetic = document.getElementById("locAnesth");
-    const aspirin = document.getElementById("aspirin");
-    const penicillin = document.getElementById("penicillin");
-    const latex = document.getElementById("latex");
-    const sulfaDrugs = document.getElementById("sulfa");
-    
-    if (localAnesthetic.checked) {
-      allergies += ", Local Anesthetic";
-    }
-    if (aspirin.checked) {
-      allergies += ", Aspirin";
-    }
-    if (penicillin.checked) {
-      allergies += ", Penicillin";
-    }
-    if (latex.checked) {
-      allergies += ", Latex";
-    }
-    if (sulfaDrugs.checked) {
-      allergies += ", Sulfa Drugs";
-    }
-    //Other Allergies
-    if (document.getElementById("otherAllergiesCB").checked) {
-      allergies += ", " + document.getElementById("otherAllergies").value;
-    }
+      // Cache DOM elements for better performance
+      cacheElements() {
+        this.elements = {
+          nextBtn: document.getElementById('nextButton'),
+          step1: document.getElementById('step1'),
+          step2: document.getElementById('step2'),
+          dateInput: document.getElementById('appointmentDate'),
+          timeSelect: document.getElementById('appointmentTime'),
+          summary: document.getElementById('appointmentSummary'),
+          hiddenDate: document.getElementById('hiddenDate'),
+          hiddenTime: document.getElementById('hiddenTime'),
+          form: document.getElementById('bookingForm'),
+          modal: document.getElementById('successModal'),
+          continueBtn: document.getElementById('continueBtn'),
+          homeBtn: document.getElementById('homeBtn'),
+          birthdateInput: document.getElementById('birthdate'),
+          ageInput: document.getElementById('age')
+        };
+      },
 
-    if (allergies != "") {
-      allergies = allergies.slice(2);
-    } else {
-      allergies = "None";
-    }
-    return allergies;
-  }
+      // Bind all event handlers
+      bindEvents() {
+        // Step navigation
+        this.elements.nextBtn?.addEventListener('click', (e) => this.handleNextStep(e));
+        
+        // Form submission
+        this.elements.form?.addEventListener('submit', (e) => this.handleFormSubmit(e));
+        
+        // Modal controls
+        this.elements.continueBtn?.addEventListener('click', () => this.closeModal());
+        this.elements.homeBtn?.addEventListener('click', () => this.goHome());
+        
+        // Auto-calculate age from birthdate
+        this.elements.birthdateInput?.addEventListener('change', () => this.calculateAge());
+        
+        // Medical history toggles
+        this.setupMedicalToggles();
+        
+        // Allergies toggle
+        this.setupAllergiesToggle();
+        
+        // Modal keyboard/click handlers
+        this.setupModalHandlers();
+      },
 
-  //For option "others" Event Listener
-  document.getElementById("otherAllergiesCB").addEventListener("change", (e) => {
-    if (document.getElementById("otherAllergiesCB").checked) {
-      document.getElementById("otherAllergies").disabled = false;
-    } else {
-      document.getElementById("otherAllergies").disabled = true;
-      document.getElementById("otherAllergies").value = "";
-    }
-    
-  });
+      // Setup form defaults and validation
+      setupForm() {
+        const today = new Date();
+        const minDate = today.toISOString().split('T')[0];
+        if (this.elements.dateInput) {
+          this.elements.dateInput.min = minDate;
+        }
+      },
 
-  //Input Checking for women
-  function pregnant() {
-    if (document.getElementById("pregy").checked) {
-      return "Yes";
-    } else {
-      return "No";
-    }
-  }
-  function nursing() {
-    if (document.getElementById("nurs").checked) {
-      return "Yes";
-    } else {
-      return "No";
-    }
-  }
-  function birthContPills() {
-    if (document.getElementById("bcpills").checked) {
-      return "Yes";
-    } else {
-      return "No";
-    }
-  }
+      // Handle step navigation
+      handleNextStep(e) {
+        e.preventDefault();
+        
+        const date = this.elements.dateInput?.value;
+        const time = this.elements.timeSelect?.value;
 
-  // INPUT CHECKING IF NULL
-  function checkInput(input) {
-    if (input === null || input.trim() === "") {
-      return "N/A";
-    }
-    return input;
-  }
-  
-  function dateValid() {
-    if (document.getElementById("lastVisit").value === null || document.getElementById("lastVisit").value === "") {
-      const today = new Date();
-      const yyyy = today.getFullYear();
-      const mm = String(today.getMonth() + 1).padStart(2, "0");
-      const dd = String(today.getDate()).padStart(2, "0");
-      const formatted = `${yyyy}-${mm}-${dd}`;
-      return formatted;
-    } else {
-      return document.getElementById("lastVisit").value;
-    }
-  }
+        if (!date || !time) {
+          this.showError('Please select both a date and a time.');
+          return;
+        }
 
-  //FOR DATABASE
-  function submitDataToDB() {
-    const getVal = id => document.getElementById(id).value;
-    const getOpt = id => checkInput(getVal(id));
+        // Store values
+        if (this.elements.hiddenDate) this.elements.hiddenDate.value = date;
+        if (this.elements.hiddenTime) this.elements.hiddenTime.value = time;
 
-    let formData = {
-      // Required
-      name: getVal("name"),
-      birthdate: getVal("birthdate"),
-      age: getVal("age"),
-      sex: getVal("sex"),
-      homeAddress: getVal("homeAddress"),
-      mobile: getVal("mobile"),
-      // Optional
-      religion: getOpt("religion"),
-      nationality: getOpt("nationality"),
-      occupation: getOpt("occupation"),
-      email: getOpt("email"),
-      refBy: getOpt("referrer"),
-      prevDent: getOpt("prevDentist"),
-      lastDentVisit: dateValid(),
-      resForConsult: getOpt("reason"),
-      physician: getOpt("physician"),
-      officeContact: getOpt("physicianOffice"),
-      medications: getOpt("medications"),
-      allergy: checkAllergies(),
-      bloodType: getOpt("bloodType"),
-      bloodPressure: getOpt("bloodPressure"),
-      pregy: pregnant(),
-      nurs: nursing(),
-      bcpills: birthContPills(),
-      undr_trtmnt: document.getElementById("gHealthN").checked ? getOpt("medCondition") : "N/A",
-      surgery: document.getElementById("hoSurY").checked ? getOpt("surgeryDetails") : "N/A"
+        // Update summary
+        const formattedDate = this.formatDate(date);
+        const formattedTime = this.formatTime(time);
+        if (this.elements.summary) {
+          this.elements.summary.textContent = `Appointment: ${formattedDate} at ${formattedTime}`;
+        }
+
+        // Navigate to step 2
+        this.elements.step1?.classList.remove('active');
+        this.elements.step2?.classList.add('active');
+      },
+
+      // Handle form submission
+      async handleFormSubmit(e) {
+        e.preventDefault();
+        
+        if (this.isSubmitting) return;
+        
+        if (!this.validateForm()) return;
+        
+        this.isSubmitting = true;
+        const submitBtn = this.elements.form?.querySelector('button[type="submit"]');
+        this.setButtonLoading(submitBtn, true);
+
+        try {
+          const formData = this.collectFormData();
+          const response = await fetch('js/personal_info_to_db.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData).toString()
+          });
+
+          const responseText = await response.text();
+          
+          if (response.ok && (responseText.includes('Personal details saved') || responseText.includes('saved'))) {
+            this.showModal();
+          } else {
+            this.showError(`Submission failed: ${responseText}`);
+          }
+        } catch (error) {
+          this.showError(`Network error: ${error.message}`);
+        } finally {
+          this.isSubmitting = false;
+          this.setButtonLoading(submitBtn, false);
+        }
+      },
+
+      // Validate form before submission
+      validateForm() {
+        const requiredFields = [
+          'fullName', 'birthdate', 'age', 'sex', 'homeAddress', 'mobile'
+        ];
+
+        for (const fieldId of requiredFields) {
+          const field = document.getElementById(fieldId);
+          if (!field?.value.trim()) {
+            field?.focus();
+            this.showError(`Please fill in the ${field?.labels[0]?.textContent || fieldId} field.`);
+            return false;
+          }
+        }
+
+        // Validate email format if provided
+        const email = document.getElementById('email');
+        if (email?.value && !this.isValidEmail(email.value)) {
+          email.focus();
+          this.showError('Please enter a valid email address.');
+          return false;
+        }
+
+        // Validate age
+        const age = document.getElementById('age');
+        if (age?.value && (parseInt(age.value) < 0 || parseInt(age.value) > 120)) {
+          age.focus();
+          this.showError('Please enter a valid age between 0 and 120.');
+          return false;
+        }
+
+        return true;
+      },
+
+      // Email validation helper
+      isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      },
+
+      // Calculate age from birthdate
+      calculateAge() {
+        const birthdateInput = this.elements.birthdateInput;
+        const ageInput = this.elements.ageInput;
+        
+        if (!birthdateInput?.value || !ageInput) return;
+
+        const birthDate = new Date(birthdateInput.value);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+        }
+        
+        if (age >= 0 && age <= 120) {
+          ageInput.value = age;
+        }
+      },
+
+      // Setup medical history toggles
+      setupMedicalToggles() {
+        const toggles = [
+          { yes: 'medTreatmentYes', no: 'medTreatmentNo', target: 'medCondition' },
+          { yes: 'surgeryYes', no: 'surgeryNo', target: 'surgeryDetails' }
+        ];
+
+        toggles.forEach(toggle => {
+          const yesElement = document.getElementById(toggle.yes);
+          const noElement = document.getElementById(toggle.no);
+          const targetElement = document.getElementById(toggle.target);
+
+          yesElement?.addEventListener('change', () => {
+            if (yesElement.checked && targetElement) {
+              targetElement.disabled = false;
+            }
+          });
+
+          noElement?.addEventListener('change', () => {
+            if (noElement.checked && targetElement) {
+              targetElement.disabled = true;
+              targetElement.value = '';
+            }
+          });
+        });
+      },
+
+      // Setup allergies other option toggle
+      setupAllergiesToggle() {
+        const otherCheckbox = document.getElementById('otherAllergy');
+        const otherInput = document.getElementById('otherAllergies');
+
+        otherCheckbox?.addEventListener('change', () => {
+          if (otherInput) {
+            otherInput.disabled = !otherCheckbox.checked;
+            if (!otherCheckbox.checked) {
+              otherInput.value = '';
+            }
+          }
+        });
+      },
+
+      // Setup modal event handlers
+      setupModalHandlers() {
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && this.elements.modal?.classList.contains('show')) {
+            this.closeModal();
+          }
+        });
+
+        // Close on backdrop click
+        this.elements.modal?.addEventListener('click', (e) => {
+          if (e.target === this.elements.modal) {
+            this.closeModal();
+          }
+        });
+      },
+
+      // Collect all form data
+      collectFormData() {
+        const getValue = (id) => {
+          const element = document.getElementById(id);
+          return element?.value?.trim() || '';
+        };
+
+        const getOptionalValue = (value) => value || 'N/A';
+
+        const getRadioValue = (name) => {
+          const element = document.querySelector(`input[name="${name}"]:checked`);
+          return element?.value || 'No';
+        };
+
+        const getCheckboxValue = (id) => {
+          const element = document.getElementById(id);
+          return element?.checked ? 'Yes' : 'No';
+        };
+
+        return {
+          // Appointment details
+          appointment_date: this.elements.hiddenDate?.value || '',
+          appointment_time: this.elements.hiddenTime?.value || '',
+
+          // Required fields
+          name: getValue('fullName'),
+          birthdate: getValue('birthdate'),
+          age: getValue('age'),
+          sex: getValue('sex'),
+          homeAddress: getValue('homeAddress'),
+          mobile: getValue('mobile'),
+
+          // Optional fields
+          religion: getOptionalValue(getValue('religion')),
+          nationality: getOptionalValue(getValue('nationality')),
+          occupation: getOptionalValue(getValue('occupation')),
+          email: getOptionalValue(getValue('email')),
+          refBy: getOptionalValue(getValue('referrer')),
+          prevDent: getOptionalValue(getValue('prevDentist')),
+          lastDentVisit: getValue('lastVisit') || new Date().toISOString().split('T')[0],
+          resForConsult: getOptionalValue(getValue('reason')),
+          physician: getOptionalValue(getValue('physician')),
+          officeContact: getOptionalValue(getValue('physicianOffice')),
+          medications: getOptionalValue(getValue('medications')),
+          bloodType: getOptionalValue(getValue('bloodType')),
+          bloodPressure: getOptionalValue(getValue('bloodPressure')),
+
+          // Medical conditions
+          undr_trtmnt: document.getElementById('medTreatmentYes')?.checked ? 
+            getOptionalValue(getValue('medCondition')) : 'N/A',
+          surgery: document.getElementById('surgeryYes')?.checked ? 
+            getOptionalValue(getValue('surgeryDetails')) : 'N/A',
+
+          // Women's health
+          pregy: getCheckboxValue('pregnant'),
+          nurs: getCheckboxValue('nursing'),
+          bcpills: getCheckboxValue('birthControl'),
+
+          // Allergies
+          allergy: this.collectAllergies()
+        };
+      },
+
+      // Collect allergies information
+      collectAllergies() {
+        const allergyIds = ['localAnesthetic', 'aspirin', 'penicillin', 'latex', 'sulfa'];
+        const allergies = [];
+
+        allergyIds.forEach(id => {
+          const element = document.getElementById(id);
+          if (element?.checked) {
+            allergies.push(element.value);
+          }
+        });
+
+        // Check for other allergies
+        const otherCheckbox = document.getElementById('otherAllergy');
+        const otherInput = document.getElementById('otherAllergies');
+        
+        if (otherCheckbox?.checked && otherInput?.value.trim()) {
+          allergies.push(otherInput.value.trim());
+        }
+
+        return allergies.length > 0 ? allergies.join(', ') : 'None';
+      },
+
+      // Set button loading state
+      setButtonLoading(button, isLoading) {
+        if (!button) return;
+
+        if (isLoading) {
+          button.disabled = true;
+          button.dataset.originalText = button.textContent;
+          button.textContent = 'Submitting...';
+          button.style.opacity = '0.7';
+        } else {
+          button.disabled = false;
+          button.textContent = button.dataset.originalText || 'Submit Appointment';
+          button.style.opacity = '1';
+        }
+      },
+
+      // Format time for display
+      formatTime(timeString) {
+        const [hours, minutes] = timeString.split(':').map(Number);
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const displayHours = ((hours + 11) % 12) + 1;
+        return `${displayHours}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+      },
+
+      // Format date for display
+      formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        });
+      },
+
+      // Show success modal
+      showModal() {
+        if (!this.elements.modal) return;
+
+        this.elements.modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+
+        // Focus the continue button for accessibility
+        setTimeout(() => {
+          this.elements.continueBtn?.focus();
+        }, 500);
+      },
+
+      // Close success modal
+      closeModal() {
+        if (!this.elements.modal) return;
+
+        this.elements.modal.classList.remove('show');
+        document.body.style.overflow = '';
+
+        // Reset form after a short delay
+        setTimeout(() => {
+          this.resetForm();
+        }, 300);
+      },
+
+      // Reset form to initial state
+      resetForm() {
+        this.elements.form?.reset();
+        this.elements.step2?.classList.remove('active');
+        this.elements.step1?.classList.add('active');
+        if (this.elements.summary) {
+          this.elements.summary.textContent = '';
+        }
+
+        // Reset disabled states
+        const conditionalFields = ['medCondition', 'surgeryDetails', 'otherAllergies'];
+        conditionalFields.forEach(id => {
+          const field = document.getElementById(id);
+          if (field) {
+            field.disabled = true;
+            field.value = '';
+          }
+        });
+      },
+
+      // Navigate to home page
+      goHome() {
+        window.location.href = 'index.html';
+      },
+
+      // Show error message
+      showError(message) {
+        // Remove existing error messages
+        document.querySelectorAll('.error-message').forEach(el => el.remove());
+
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.textContent = message;
+        errorDiv.setAttribute('role', 'alert');
+
+        document.body.appendChild(errorDiv);
+
+        // Auto-remove and click to dismiss
+        const removeError = () => {
+          if (errorDiv.parentNode) {
+            errorDiv.remove();
+          }
+        };
+        
+        errorDiv.addEventListener('click', removeError);
+        setTimeout(removeError, 8000);
+      }
     };
 
-    let params = new URLSearchParams(formData);
-
-    fetch("./js/personal_info_to_db.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: params.toString()
-    })
-    .then(response => response.text())
-    .then(data => alert(data));
-  }
-
-
-  nextBtn.addEventListener('click', () => {
-    const dateVal = dateInput.value;
-    const timeVal = timeSelect.value;
-
-    if (!dateVal || !timeVal) {
-      alert('Please select both a date and a time.');
-      return;
+    // Initialize application when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => BookingApp.init());
+    } else {
+      BookingApp.init();
     }
-
-    // Fill hidden inputs for PHP later
-    hiddenDate.value = dateVal;
-    hiddenTime.value = timeVal;
-
-    // Show summary (pretty time)
-    const prettyTime = prettyTimeLabel(timeVal);
-    summary.textContent = `Appointment: ${formatDateHuman(dateVal)} at ${prettyTime}`;
-
-    // Swap steps
-    step1.classList.remove('active');
-    step2.classList.add('active');
-  });
-
-  // For now, prevent real submission; remove e.preventDefault() to enable PHP post
-  form.addEventListener('submit', (e) => {
-    submitDataToDB();
-  });
-
-  //EVENT LISTENER FOR THE RADIO BUTTONS
-  //Good Health
-  document.getElementById("gHealthY").addEventListener("change", (e) => {
-    document.getElementById("medCondition").disabled = true;
-    document.getElementById("medCondition").value = "";
-  });
-  document.getElementById("gHealthN").addEventListener("change", (e) => {
-    document.getElementById("medCondition").disabled = false;
-  });
-
-  //Hospitalized
-  document.getElementById("hoSurY").addEventListener("change", (e) => {
-    document.getElementById("surgeryDetails").disabled = false;
-  });
-  document.getElementById("hoSurN").addEventListener("change", (e) => {
-    document.getElementById("surgeryDetails").disabled = true;
-    document.getElementById("surgeryDetails").value = "";
-  });
-  
-
-
-
-  function prettyTimeLabel(value) {
-    // value like "14:00" -> "2:00 PM"
-    const [h, m] = value.split(':').map(Number);
-    const ampm = h >= 12 ? 'PM' : 'AM';
-    const hour12 = ((h + 11) % 12) + 1;
-    return `${hour12}:${String(m).padStart(2, '0')} ${ampm}`;
-    }
-
-  function formatDateHuman(iso) {
-    const d = new Date(iso);
-    const opts = { year: 'numeric', month: 'long', day: 'numeric' };
-    return d.toLocaleDateString(undefined, opts);
-  }
-});
