@@ -1,0 +1,544 @@
+    /* === CSS VARIABLES === */
+    :root {
+      --primary-color: #269A90;
+      --primary-dark: #1f7f73;
+      --text-color: #333;
+      --text-muted: #777;
+      --background-color: #f7f9f9;
+      --white: #ffffff;
+      --border-color: #ddd;
+      --success-bg: #f5faf9;
+      --error-bg: #f8d7da;
+      --error-text: #721c24;
+      --error-border: #f5c6cb;
+      --shadow-light: 0 10px 30px rgba(0,0,0,0.08);
+      --shadow-modal: 0 25px 50px rgba(0, 0, 0, 0.25);
+      --border-radius: 8px;
+      --border-radius-large: 14px;
+      --transition: all 0.3s ease;
+    }
+
+    /* === BASE STYLES === */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Kulim Park', sans-serif;
+      color: var(--text-color);
+      background: var(--background-color);
+      line-height: 1.6;
+    }
+
+    /* === LAYOUT === */
+    .booking-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .booking-card {
+      width: 100%;
+      max-width: 980px;
+      background: var(--white);
+      border-radius: var(--border-radius-large);
+      box-shadow: var(--shadow-light);
+      padding: 2rem;
+    }
+
+    /* === STEP MANAGEMENT === */
+    .booking-step {
+      display: none;
+      animation: stepFadeIn 280ms ease-out both;
+    }
+
+    .booking-step.active {
+      display: block;
+    }
+
+    @keyframes stepFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* === TYPOGRAPHY === */
+    h2 {
+      text-align: center;
+      color: var(--primary-color);
+      margin: 0 0 1.25rem;
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+
+    .section-subheading {
+      margin: 1.25rem 0 0.75rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 2px solid #eee;
+      font-weight: 700;
+      color: #444;
+      font-size: 1.1rem;
+    }
+
+    /* === FORM STYLES === */
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem 0.9rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      font-family: inherit;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(38, 154, 144, 0.15);
+    }
+
+    .form-group input:disabled,
+    .form-group textarea:disabled {
+      background-color: #f5f5f5;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    /* === INLINE FORM ELEMENTS === */
+    .form-group-inline {
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .inline-label {
+      font-weight: 600;
+      margin-right: 1rem;
+      min-width: 200px;
+    }
+
+    .form-group-inline label {
+      margin-right: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .form-group-inline input[type="radio"],
+    .form-group-inline input[type="checkbox"] {
+      width: auto;
+      margin: 0;
+    }
+
+    /* === CHECKBOX GRID === */
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .checkbox-grid label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .checkbox-grid input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary-color);
+    }
+
+    /* === BUTTONS === */
+    .btn-primary {
+      background: var(--primary-color);
+      color: var(--white);
+      border: none;
+      border-radius: 10px;
+      padding: 0.9rem 1.6rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.08s ease, background 0.2s ease;
+      font-family: inherit;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-primary:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+      border-radius: 12px;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary-color);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+
+    .wide {
+      display: block;
+      width: 100%;
+      margin-top: 0.25rem;
+    }
+
+    /* === APPOINTMENT SUMMARY === */
+    .summary {
+      background: var(--success-bg);
+      border: 1px dashed rgba(38, 154, 144, 0.35);
+      color: #1c4e4a;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      margin: 0.25rem 0 1.25rem;
+      font-weight: 600;
+    }
+
+    .submit-note {
+      margin-top: 0.75rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    /* === SUCCESS MODAL === */
+    #successModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 999999;
+      background: linear-gradient(135deg, rgba(38, 154, 144, 0.95) 0%, rgba(50, 151, 139, 0.95) 100%);
+    }
+
+    #successModal.show {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: modalFadeIn 0.3s ease-out;
+    }
+
+    .modal-content {
+      background: var(--white);
+      border-radius: 24px;
+      max-width: 650px;
+      width: 95%;
+      max-height: 95vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-modal), 0 10px 25px rgba(38, 154, 144, 0.2);
+      animation: modalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      margin: 2rem;
+      text-align: center;
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, #269A90 0%, #32978b 50%, #1e8a80 100%);
+      padding: 2rem;
+      border-radius: 24px 24px 0 0;
+      flex-shrink: 0;
+    }
+
+    .modal-header h2 {
+      font-size: 1.8rem;
+      margin: 1rem auto 0;
+      color: var(--white);
+    }
+
+    .success-icon {
+      margin: 0 auto 1rem;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .checkmark {
+      width: 80px;
+      height: 80px;
+    }
+
+    .checkmark-circle {
+      stroke-dasharray: 166;
+      stroke-dashoffset: 166;
+      stroke-width: 3;
+      stroke-miterlimit: 10;
+      stroke: var(--white);
+      fill: rgba(255, 255, 255, 0.1);
+      animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    }
+
+    .checkmark-check {
+      stroke-dasharray: 48;
+      stroke-dashoffset: 48;
+      stroke: var(--white);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .main-message {
+      font-size: 1.3rem;
+      color: var(--primary-color);
+      margin: 0 auto 0.8rem;
+      font-weight: 600;
+    }
+
+    .sub-message {
+      font-size: 1.1rem;
+      color: #666;
+      margin: 0 auto 1.5rem;
+    }
+
+    .next-steps {
+      background: linear-gradient(135deg, #f0f9f8 0%, #e8f5f4 100%);
+      border: 1px solid rgba(38, 154, 144, 0.1);
+      padding: 1.2rem;
+      border-radius: 12px;
+      margin: 1rem auto;
+      max-width: 500px;
+    }
+
+    .next-steps h4 {
+      color: var(--primary-color);
+      margin: 0 auto 1rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .next-steps ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .next-steps li {
+      padding: 0.5rem 0;
+      color: #555;
+      font-size: 0.95rem;
+    }
+
+    .contact-info {
+      background: rgba(38, 154, 144, 0.05);
+      padding: 1.2rem;
+      border-radius: 12px;
+      margin: 1rem auto 0;
+      border: 1px solid rgba(38, 154, 144, 0.1);
+    }
+
+    .contact-info p {
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .contact-info a {
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--primary-color);
+      font-size: 1.1rem;
+    }
+
+    .modal-footer {
+      padding: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      background: #f8f9fa;
+      border-radius: 0 0 24px 24px;
+      flex-shrink: 0;
+    }
+
+    /* === ERROR MESSAGES === */
+    .error-message {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--error-bg);
+      color: var(--error-text);
+      border: 1px solid var(--error-border);
+      padding: 1rem 1.5rem;
+      border-radius: var(--border-radius);
+      max-width: 400px;
+      z-index: 1000000;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+    }
+
+    /* === ANIMATIONS === */
+    @keyframes modalFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes stroke {
+      100% { stroke-dashoffset: 0; }
+    }
+
+    /* === RESPONSIVE DESIGN === */
+    @media (max-width: 860px) {
+      .checkbox-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .booking-section {
+        padding: 1rem;
+      }
+
+      .booking-card {
+        padding: 1.5rem 1.25rem;
+        border-radius: 12px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group-inline {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .inline-label {
+        min-width: auto;
+        margin-bottom: 0.5rem;
+      }
+
+      .modal-content {
+        margin: 1rem;
+        width: calc(100% - 2rem);
+        border-radius: 20px;
+      }
+
+      .modal-footer {
+        flex-direction: column;
+        padding: 2rem;
+      }
+
+      .modal-footer button {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .checkbox-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* === ACCESSIBILITY === */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* === PRINT STYLES === */
+    @media print {
+      .booking-section {
+        min-height: auto;
+        padding: 1rem;
+      }
+
+      .booking-card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+      }
+
+      #successModal {
+        display: none !important;
+      }
+    }
